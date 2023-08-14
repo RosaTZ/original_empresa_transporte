@@ -1,0 +1,568 @@
+.botones{
+    margin: auto;
+    padding: 30px;
+}
+
+.botones button{
+    height: 50px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.botones button:hover{
+    color: orange;
+    box-shadow: 1px 0 20px 2px gray;
+}
+
+
+
+/* Estilos para la tabla */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+.custom-table th {
+    background-color: #273273;
+    text-align: center;
+    padding: 11px;
+}
+.custom-table td{
+    margin: auto;
+    text-align: center;
+    padding: 6px;
+    text-transform: capitalize;    
+    /* border-bottom: 1px solid #00000079; */
+}
+
+.custom-table th {
+    text-transform: 800;
+    font-weight: bold;
+    text-align: center;
+    color: #f9f9f9;
+}
+
+.custom-table #editar{
+    color: #000000;
+}
+
+.custom-table tr:nth-child(even) {
+    text-align: center;
+    background-color: #c5cbf231;
+    color: rgb(0, 0, 0);
+}
+.custom-table tr:hover{
+    background-color: #27327323;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+
+/* Estilos para la versión responsiva */
+@media screen and (max-width: 600px) {
+    .custom-table th,
+    .custom-table td {
+        padding: 6px;
+    }
+}
+
+#tituloTabla{
+    text-align: center;
+    margin-bottom: 3%;
+    font-weight: 600;
+    size: 50px;
+    margin-top: 6%;
+    cursor: pointer;
+}
+
+.table-container {
+    background-color: #fcf8f8;
+    width: 100%;
+    max-height: 68vh; /* Establece una altura máxima del 60% de la altura de la ventana */
+    overflow-y: auto; 
+    box-shadow: 1px 0px 20px 3px rgba(60, 60, 60, 0.538);
+    scrollbar-width: thin; /* Establece el ancho del scrollbar */
+    scrollbar-color: #273273 #e3dbdb7c; 
+}
+
+.table-container::-webkit-scrollbar {
+    display: none; 
+    border-radius: 3px;
+    border: solid;
+}
+
+thead{
+    position:sticky;
+    background-color: #273273;
+    top: 0;
+    z-index: 1;
+}
+
+/* modal */
+.modal-body {
+    padding: 20px;
+}
+
+.modal-body input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    cursor: pointer;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#closeModalBtn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+#saveBtn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Estilos para el botón de abrir el modal */
+#openModalBtn {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#openModalBtn:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para la versión responsiva */
+@media screen and (max-width: 600px) {
+    .modal-content {
+        max-width: 95%;
+    }
+}
+
+
+/* modal  -----------------------------------------*/
+.modal-bg {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    margin-top: 1%;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    max-width: 50%;
+}
+
+/* Estilos para el título del modal */
+.modal-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Estilos para el cuerpo del modal */
+.modal-body {
+    text-align: center;
+    max-height: 60vh; 
+    overflow-y: auto; 
+}
+
+/* Estilos para los inputs dentro del modal-body */
+.modal-body input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    border: none;
+    border-bottom: 1px solid;
+    outline: none !important;
+}
+
+/* Estilos para los botones */
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    cursor: pointer;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#closeModalBtn {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+#saveBtn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* buscador BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB */
+.Agregar{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    margin-top: 1% ;
+}
+
+
+.Agregar button{
+    background-color: #4E64A6;
+    height: 9vh;
+    width: 10vh;
+    border-radius: 7px;
+    border: none;
+}
+.Agregar img{
+    text-align: center;
+    width: 60%;
+    margin: auto;
+
+}
+.Agregar button:hover{
+    cursor: pointer;
+    box-shadow: 1px 0 20px  1px #3a393c4d;
+}
+.buscador {
+    margin-top: 2%;
+    display: flex;
+    position: fixed;
+    flex-direction: row;
+    padding-left: 20vh;
+  }
+
+.buscador button{
+    background-color: #4E64A6;
+    height: 9vh;
+    width: 10vh;
+    border-radius: 10px 10px 0px 10px;
+    border: none;
+}
+.buscador img{
+    text-align: center;
+    width: 60%;
+    margin: auto;
+}
+
+.buscador input{
+    outline: none;
+    border: none;
+    border-bottom: solid 1px gray;
+    outline: none !important;
+}
+
+.buscador button:hover{
+    cursor:pointer;
+    box-shadow: 1px 0 20px  1px #3a393c4d;
+}
+
+/* registrar */
+
+.registrar{
+padding: 7%;
+margin-right: 20%;
+margin-left: 20%;
+text-align: center;
+height: 15%;
+border-radius: 4px;
+border: none;
+box-shadow: 1px 0 50px  1px rgba(88, 87, 87, 0.59);
+background-color:#26A69A;
+color: white;
+}
+.registrar:hover{
+    box-shadow: 1px 0 50px  1px #26A69A;
+
+}
+
+#editar{
+    background-color: yellow;
+    cursor: pointer;
+
+}
+#editar:hover{
+    box-shadow: 1px 1px 10px 1px rgb(255, 217, 0);
+}
+
+
+#imagen{
+    background-color: #f9f9f9;
+    cursor: pointer;
+    width: 30%;
+    height: 80%;
+    margin: auto;
+    
+}
+
+/* _----------------------------------------- */
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    appearance: none; /* Remover estilos del "select" por defecto en algunos navegadores */
+    background-color: #f7f7f7; /* Color de fondo */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='%23333'%3E%3Cpath d='M16 22l-8-8h16z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+}
+
+/* Estilos para opciones */
+option {
+    padding: 8px;
+    background-color: #fff;
+    color: #333;
+}
+
+option:checked {
+    background-color: #007BFF; /* Color de fondo cuando la opción está seleccionada */
+    color: #fff; /* Color del texto cuando la opción está seleccionada */
+}
+
+p {
+    margin-top: 10px;
+}
+
+#cardTicket{
+    margin: auto;
+    width: 90%;
+    text-align: center;
+    height: 100%;
+    border-radius: 4px;
+
+}
+
+/* FORMULARIO DE VENTA */
+.formulario {
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+    margin: 0 auto; /* Centrar horizontalmente */
+    margin-top: 50px; /* Separación desde arriba */
+  }
+
+  .resaltado {
+    font-size: 24px;
+    font-weight: bold;
+    color:#26A69A;
+  }
+
+  .formulario span {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  .formulario input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+
+
+
+#ok{
+    margin-top: 20px;
+    margin: 2%;
+    padding: 1% 2%;
+    background-color: #26A69A;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#no{
+    margin-top: 20px;
+    margin: 2%;
+    padding: 1% 2%;
+    background-color: #ff0000a9;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+}
+
+#nuevo{
+    margin: auto;
+    display: flex;
+    background-color: #ffa600d2;
+    color: rgb(255, 255, 255);
+    text-transform: capitalize;
+    margin-top:  10px;
+   
+}
+
+
+
+#nuevo:hover {
+    background-color: #ffa600;
+    font-weight: bold;
+    box-shadow:  1px 0 20px 1px  #ffa600;
+
+    
+
+}
+
+/* informacion inicio */
+
+.infoInicio{
+    display: flex;
+}
+
+.avatar{
+    background-color:  #ffa600;
+}
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    /* max-width: 80%; */
+}
+
+/* ALERTAS LOGIN  */
+
+.alertt {
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    position: relative;
+    margin: auto;
+    margin-bottom: 1%;
+  }
+  
+  .success {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .closebtn {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .closebtn:hover {
+    color: black;
+  }
+
+  
+  .error {
+    background-color: #f44336;
+    color: white;
+    text-align: center;
+    text-transform:capitalize;
+  }
+  
+  /*ALERT PARA PAGINA  */
+  .alert {
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    position: relative;
+    margin: auto;
+  }
+  
+  .success {
+    text-align: center;
+    background-color: #4CAF50;
+    color: #d5f6d6;
+    border:solid #1b861f;
+    font-weight: 600;
+    text-transform:capitalize;
+  }
+  
+  .closebtn {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .closebtn:hover {
+    color: black;
+  }
+
+  
+  .error {
+    background-color: #f4918acc;
+    color :#d70f01;
+    text-align: center;
+    border: solid 2px  #d70f01;
+    text-transform:capitalize;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+  }  
+
+  .icon-edit {
+    align-items: center;
+  }
+  
+  .icon-edit::before {
+    content: "\f044"; /* Código del icono de FontAwesome */
+    font-family: "Font Awesome 5 Free"; /* Nombre de la fuente del icono */
+    font-size: 18px;
+  }
+
+.icon-rev{
+    align-items: center;
+}
+
+.icon-rev::before {
+    content: "\f0fe"; /* Código del icono de FontAwesome */
+    font-family: "Font Awesome 5 Free"; /* Nombre de la fuente del icono */
+    font-size: 6vh;
+    color: #ffff;
+  }
