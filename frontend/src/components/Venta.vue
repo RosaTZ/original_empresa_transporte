@@ -182,6 +182,66 @@
       </div>
       <!-- ---------------------------- -->
     </div>
+    <!-- Boleto -->
+<div v-if="modalBoleto===true">
+    <div class="ticket" v-for="v in boleto" :key="v">
+    <div class="ticket-header">
+      <h4>{{ v.empresa.nombre }}</h4>
+      <p>{{ v.empresa.nit }}</p>
+      <p>{{ v.empresa.direccion }}</p>
+      <p>{{ v.empresa.telefono }}</p>
+    </div>
+    <div class="ticket-info">
+      <div>
+        <label>Fecha de Venta:</label>
+        <span> {{ v.fecha_venta }}</span>
+      </div>
+      <div>
+        <label>Fecha de Salida:</label>
+        <span>{{ v.fecha_salida }}/{{ v.hora_salida }}</span>
+      </div>
+      <div>
+        <label>Cédula del Pasajero:</label>
+        <span>{{ v.cliente.cedula }}</span>
+      </div>
+      <div>
+        <label>Nombre del Pasajero:</label>
+        <span>{{ v.cliente.nombre }} {{ v.cliente.apellidos }}</span>
+      </div>
+      <div>
+        <label>Teléfono:</label>
+        <span>{{ v.cliente.telefono }}</span>
+      </div>
+      <div>
+        <label>Vehículo:</label>
+        <span>{{ v.vehiculo.placa }}/{{ v.vehiculo.num_vehiculo }}</span>
+      </div>
+      <div>
+        <label>Origen:</label>
+        <span>{{ v.ruta.origen }}</span>
+      </div>
+      <div>
+        <label>Destino:</label>
+        <span>{{ v.ruta.destino }}</span>
+      </div>
+      <div>
+        <label>Número de Ticket:</label>
+        <span>{{ v.codigo }}</span>
+      </div>
+      <div>
+        <label>Silla:</label>
+        <span>{{ v.numero_puesto }}</span>
+      </div>
+      <div>
+        <label>Valor del Ticket:</label>
+        <span>{{ v.precio }}</span>
+      </div>
+    </div>
+    <div class="ticket-footer">
+      <p>¡Gracias por su compra!</p>
+    </div>
+  </div>
+</div>
   </div>
 </template>
 
@@ -227,6 +287,8 @@ let conductor = ref("");
 let renovarVenta = ref([]);
 let renovarPuestos=ref([])
 let mostrarPuestos=ref(false)
+let boleto=ref([])
+let modalBoleto=ref(false)
 
 async function buscarVehiculosRutas() {
   vehiculos.value = await useVehiculo.buscarVehiculo();
@@ -283,16 +345,14 @@ function registrarCliente() {
 }
 function buscarTicket() {
   useTicket.buscarTicket().then((res) => {
-    console.log(res);
-    numAleatorio.value = res.length;
-    console.log(numAleatorio.value);
+    numAleatorio.value = res.length+1;
   });
 }
 buscarTicket();
 function registrarTicket() {
   useTicket
     .registrarTicket({
-      codigo: numAleatorio.value + 1,
+      codigo: numAleatorio.value,
       fecha_venta: fecha_venta.value,
       fecha_salida: fecha_salida.value,
       numero_puesto: asiento.value,
@@ -306,10 +366,10 @@ function registrarTicket() {
     })
     .then((res) => {
       console.log(res);
-      console.log("nuevo ticket");
+      buscarTicketId()
+      modalBoleto.value=true
     })
     .catch((error) => {
-      console.log(error);
       if (error.response && error.response.data.errors) {
         errores.value = error.response.data.errors[0].msg;
       }else if(error.response && error.response.data){
@@ -318,6 +378,12 @@ function registrarTicket() {
         console.log(error);
       }
     });
+}
+async function buscarTicketId(){
+  await useTicket.buscarTicketId(numAleatorio.value).then((res)=>{
+boleto.value=res.ticket
+console.log(boleto.value);
+  })
 }
 async function renovar() {
  useTicket.buscarTicketRenovar( 
@@ -343,3 +409,46 @@ async function renovar() {
   }) 
 }
 </script>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+
+  .ticket {
+    max-width: 300px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .ticket-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .ticket-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .ticket-info label {
+    font-weight: bold;
+  }
+
+  .ticket-info span {
+    display: block;
+  }
+
+  .ticket-footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+</style>
