@@ -2,9 +2,8 @@
   <q-layout view="hHh lpR fFf">
     <q-header bordered class="bg-secondary text-white">
       <q-toolbar>
-
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
-        <div >
+        <div>
           <svg
             width="200"
             height="45.27949866349864"
@@ -41,29 +40,54 @@
             </g>
           </svg>
         </div>
-        <q-toolbar-title >
-          
-        </q-toolbar-title>
-        <div class="infoInicio" >
-          <q-avatar size="40px" style="margin-top:3%; margin-bottom: 3%"  class="avatar">R</q-avatar>
-          <div class="text-weight-bold" style="margin-top: 12%;" color="amarillo">Ros Ruiz</div>
+        <q-toolbar-title> </q-toolbar-title>
+        <div class="infoInicio">
+          <q-avatar
+            size="40px"
+            style="margin-top: 3%; margin-bottom: 3%"
+            class="avatar"
+            >R</q-avatar
+          >
+          <div
+            class="text-weight-bold"
+            style="margin-top: 12%"
+            color="amarillo"
+          >
+            Ros Ruiz
+          </div>
+        </div>
+        <div>
+          <!-- BOTON CERRAR SESIONN -->
+          <div>
+            <button @click="cerrar()">Cerrar sesion</button>
+          </div>
+          <!-- ---------------------------- -->
         </div>
       </q-toolbar>
-      
     </q-header>
 
-
-    <q-drawer v-model="leftDrawerOpen" side="left"  overlay behavior="desktop" elevated  show-if-above :width="250" :breakpoint="600">
-      <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; ">
+    <q-drawer
+      v-model="leftDrawerOpen"
+      side="left"
+      overlay
+      behavior="desktop"
+      elevated
+      show-if-above
+      :width="250"
+      :breakpoint="600"
+    >
+      <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px">
         <q-list padding>
-
           <q-item clickable v-ripple>
             <q-item-section avatar>
               <i class="fa-solid fa-house fa-xl"></i>
             </q-item-section>
 
             <q-item-section>
-              <router-link to="/infoEmpresa" style="text-decoration: none;color: black;">
+              <router-link
+                to="/infoEmpresa"
+                style="text-decoration: none; color: black"
+              >
                 Home
               </router-link>
             </q-item-section>
@@ -75,7 +99,10 @@
             </q-item-section>
 
             <q-item-section>
-              <router-link to="/clientes" style="text-decoration: none;color: black;">
+              <router-link
+                to="/clientes"
+                style="text-decoration: none; color: black"
+              >
                 Clientes
               </router-link>
             </q-item-section>
@@ -87,7 +114,10 @@
             </q-item-section>
 
             <q-item-section>
-              <router-link to="/conductores" style="text-decoration: none;color: black;">
+              <router-link
+                to="/conductores"
+                style="text-decoration: none; color: black"
+              >
                 Conductores
               </router-link>
             </q-item-section>
@@ -99,7 +129,10 @@
             </q-item-section>
 
             <q-item-section>
-              <router-link to="/revision" style="text-decoration: none;color: black;">
+              <router-link
+                to="/revision"
+                style="text-decoration: none; color: black"
+              >
                 Revision
               </router-link>
             </q-item-section>
@@ -111,27 +144,29 @@
             </q-item-section>
 
             <q-item-section>
-              <router-link to="/rutas" style="text-decoration: none;color: black;">
+              <router-link
+                to="/rutas"
+                style="text-decoration: none; color: black"
+              >
                 Rutas
               </router-link>
             </q-item-section>
           </q-item>
-          
 
-          <q-item clickable v-ripple >
+          <q-item clickable v-ripple>
             <q-item-section avatar>
               <i class="fa-solid fa-bus fa-xl"></i>
             </q-item-section>
 
             <q-item-section>
-              <router-link to="/vehiculos" style="text-decoration: none;color: black;">
+              <router-link
+                to="/vehiculos"
+                style="text-decoration: none; color: black"
+              >
                 Vehículos
               </router-link>
             </q-item-section>
           </q-item>
-
-
-
 
           <q-item clickable v-ripple>
             <q-item-section avatar>
@@ -139,7 +174,10 @@
             </q-item-section>
 
             <q-item-section>
-              <router-link to="/venta" style="text-decoration: none;color: rgb(0, 0, 0);">
+              <router-link
+                to="/venta"
+                style="text-decoration: none; color: rgb(0, 0, 0)"
+              >
                 Venta
               </router-link>
             </q-item-section>
@@ -151,60 +189,93 @@
             </q-item-section>
 
             <q-item-section>
-              <router-link to="/ticket" style="text-decoration: none;color: rgb(0, 0, 0);">
+              <router-link
+                to="/ticket"
+                style="text-decoration: none; color: rgb(0, 0, 0)"
+              >
                 Tickets
               </router-link>
             </q-item-section>
           </q-item>
-
         </q-list>
       </q-scroll-area>
 
-      <q-img class="absolute-top"  style="height: 150px ; background-color: #273273" >
+      <q-img
+        class="absolute-top"
+        style="height: 150px; background-color: #273273"
+      >
         <div class="absolute-bottom bg-transparent">
-          <q-avatar size="50px" style="margin-bottom: 10px;" class="avatar">R</q-avatar>
+          <q-avatar size="50px" style="margin-bottom: 10px" class="avatar"
+            >R</q-avatar
+          >
           <div class="text-weight-bold">Ros Ruiz</div>
           <div>Administrador</div>
         </div>
       </q-img>
     </q-drawer>
     <q-page-container>
-      <router-view v-slot="{Component}">
+      <router-view v-slot="{ Component }">
         <keep-alive>
-          <component :is="Component">
-          
-          </component>
+          <component :is="Component"> </component>
         </keep-alive>
-
       </router-view>
 
       <!-- <router-view /> -->
     </q-page-container>
-
+<!-- MODAL CERRAR CESION -->
+    <div v-if="modalCerarSesion === true" class="cerrarsesion">
+      <div>
+        Espacio para el modal Desea cerrar cerrarsesion
+        <div>
+          <button @click="modalCerarSesion = false">Cancelar</button>
+          <router-link :to="inicio" @click="cerrarsesion(),(modalCerarSesion=false)">
+            <button>Cerrar sesion</button>
+          </router-link>
+        </div>
+      </div>
+    </div>
+    <!-- ------------------------ -->
   </q-layout>
 </template>
 
 <script>
-import { ref } from 'vue'
-let empresa=ref('cotrasaravita')
+import { ref } from "vue";
+let empresa = ref("Cootransporte");
+let inicio = ref("");
+let modalCerarSesion = ref(false);
+function cerrar() {
+  modalCerarSesion.value = true;
+}
+
+function cerrarsesion() {
+  sessionStorage.removeItem("token");
+  inicio.value = "/";
+}
 
 export default {
-  setup () {
-    const leftDrawerOpen = ref(false)
+  setup() {
+    const leftDrawerOpen = ref(false);
 
     return {
+      cerrar,
+      modalCerarSesion,
+      cerrarsesion,
+      inicio,
       empresa,
       leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-}
+      toggleLeftDrawer() {
+        leftDrawerOpen.value = !leftDrawerOpen.value;
+      },
+    };
+  },
+};
 </script> 
 
 <style>
+.cerrarsesion{
 
-
+    background: red;
+  
+}
 </style>
 
