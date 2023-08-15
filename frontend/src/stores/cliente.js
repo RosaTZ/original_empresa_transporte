@@ -23,7 +23,7 @@ export const useClienteStore = defineStore("Cliente", () => {
     buscar.data.buscar.reverse()
      return buscar.data.buscar
     }catch (error) {
-      cargando.value=true
+      cargando.value=false
       console.log("error");
       return error.response.data
     }finally{

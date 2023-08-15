@@ -1,6 +1,7 @@
 <!-- aaaaaayyyyyyyyyyyyyyyyyyyyyyy -->
 <template>
     <!-- div del  spinner -->
+    <div>
       <div class="q-pa-md mt-2" v-if="useCliente.cargando == true">
       <div class="row">
         <div class="col-2"></div>
@@ -148,11 +149,7 @@
     <div class="modal-bg" id="modal" v-if="modalEditar===true">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Editar cliente {{ name }}</h2>  
-                <div class="alert error" v-if="alert===true">
-          <td class="icon-editt"></td>
-              {{ errores }}
-            </div>
+                <h2>Editar cliente</h2>  
             </div>
             <div class="modal-body">
               <input type="text" v-model="cedula" placeholder="Cedula">
@@ -160,21 +157,17 @@
               <input type="text" v-model="apellido" placeholder="Apellidos">
               <input type="text" v-model="telefono" placeholder="telefono" />
             </div>
-
             <div class="alert error" v-if="alert===true">
               <span>{{ errores }}</span>
+             </div>
 
-            <div>
-
-            </div>
-            <div class="modal-buttons">
+        <div class="modal-buttons">
                 <button id="closeModalBtn" @click="modalEditar=false,limpiarCampos()">Cerrar</button>
                 <button id="saveBtn" @click="guardarEdicion()">Guardar</button>
             </div>
-        </div>
     </div>
-
   </div>
+</div>
 </div>
   </template>
   

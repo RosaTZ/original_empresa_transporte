@@ -1,29 +1,38 @@
 <template>
   <div>
+
+    
     <div class="q-pa-md mt-2">
+      <!-- BOTONES SUPERIORES AGREGAR Y BUSCAR -->
       <div class="row">
         <div class="col-3"></div>
-        <div class="col-3">
-          <q-btn
-            label="Registrar nueva ruta"
-            @click="modalRegistrar=true
-            "
-            id="nuevo"
-          />
-        </div>
-        <div class="col-3">
-          <div class="buscador mt-3">
-            <button @click="buscarRutaId()" :disabled="id===''">buscar</button>
-            <input type="text" placeholder="Ruta a buscar" v-model="id"/>
-            <div class="alert error" v-if="alert===true">
-                <span>{{ erroresBuscar }}</span>
-              </div>
+        <div class="col-2">
+          <div class="Agregar">
+            <button>
+              <p class="icon-rev" @click="modalRegistrar = true"></p>
+            </button>
           </div>
         </div>
-        <div class="col-3"></div>
-      </div>
+        <div class="col-2"></div>
+        <div class="col-3">
+          <div class="buscador">
+          <button @click="buscarRutaId()" :disabled="id === ''">
+            <i
+              class="fa-solid fa-magnifying-glass"
+              style="color: #ffffff; font-size: 3.8vh"
+            ></i>
+          </button>
+          <input type="text" v-model="id" placeholder="Buscar Tecnomecanica" />
 
+          <div class="alert error" v-if="alert === true">
+            <span>{{ erroresBuscar }}</span>
+          </div>
+        </div>
+        </div>
+      </div>
+<!-- TABLA PRINCIPAL DE LAS RUTAS -->
       <div class="row">
+        <!-- TABLA -->
         <div class="col">
           <h6 id="tituloTabla">Rutas de la empresa</h6>
           <div class="table-container">
@@ -43,16 +52,10 @@
                   <td>{{ p.origen }}</td>
                   <td>{{ p.destino }}</td>
                   <!-- BOTON EDITAR RUTA -->
-                  <td>
-                    <i
-                      class="fa-regular fa-pen-to-square"
-                      @click="editarRuta(p)"
-                      id="editar"
-                    ></i>
-                  </td>
+                  <td class="icon-edit" @click="(modalEditar = true), editarRuta(p)" ></td>
                   <!-- CAMBIO DE ESTADO -->
-                <div @click="cambiarEstado(p)" style=" text-align: center; cursor: pointer">
-                <td v-if="p.estado===1" style="text-align: center; margin: auto; color: rgb(22, 75, 199); font-weight: bold;">Activo</td>
+                <div @click="cambiarEstado(p)" style=" margin: auto; display: flex; text-align: center; cursor: pointer">
+                <td v-if="p.estado===1" style="text-align: center; margin: auto; color: green; font-weight: bold;">Activo</td>
                 <td v-else style="color: red; font-weight: bold ;">Inactivo</td>
                 </div>
 
@@ -66,12 +69,10 @@
    
  <!-- INFORMACION DE LA RUTA BUSCADA POR ID -->
  <div class="modal-bg" id="modal" v-if="modalBuscar===true">
-        <div class="modal-content">
+        <div class="modal-content" style="width: 100%;">
             <div id="modal-body" v-for="b in buscar.ruta" :key="b">
               <h6 id="tituloTabla">Cliente {{ b.codigo}} </h6>
             <div class="table-container"  >
-
-           
           <table class="custom-table">
         <thead>
           <tr>
@@ -87,11 +88,11 @@
             <td>{{ b.codigo }}</td>
             <td>{{ b.origen }}</td>
             <td>{{ b.destino }}</td>
-            <td><button @click="editarCliente(b)">Editar</button></td>
-            <div @click="cambiarEstado(b)">
-                    <td v-if="b.estado === 1"><button>Activo</button></td>
-                    <td v-else><button>Inactivo</button></td>
-                  </div>
+            <td class="icon-edit" @click="(modalEditar = true), editarRuta(b)" ></td>
+            <div @click="cambiarEstado(b)" style=" text-align: center; cursor: pointer">
+                <td v-if="b.estado===1" style="text-align: center; margin: auto; color: green; font-weight: bold;">Activo</td>
+                <td v-else style="color: red; font-weight: bold ;">Inactivo</td>
+                </div>
           </tr>
         </tbody>
       </table>
@@ -104,23 +105,20 @@
             </div>
         </div>
     </div>
-        <!-- FIN DE LA INFORMACION RUTA -->
     <!-- MODAL REGISTRAR NUEVA RUTA-->
     <div class="modal-bg" id="modal" v-if="modalRegistrar === true">
       <div class="modal-content">
         <div class="modal-header">
           <h2>Registrar Ruta</h2>
-          <div v-if="alertaError === true">
-            {{ alerta }}
+          <div class="alert error" v-if="alert === true">
+            <td class="icon-editt"></td>
+            {{ errores }}
           </div>
         </div>
         <div class="modal-body">
           <input type="text" v-model="codigo" placeholder="Codigo" />
           <input type="text" v-model="origen" placeholder="origen" />
           <input type="text" v-model="destino" placeholder="Destino" />
-        </div>
-        <div id="alertaError">
-<span>{{ errores }}</span>
         </div>
         <div class="modal-buttons">
           <button id="closeModalBtn" @click="modalRegistrar = false">
@@ -137,19 +135,23 @@
         <div class="modal-header">
           <h2>Editar ruta {{ name }}</h2>
         </div>
+        <div class="alert error" v-if="alert === true">
+            <td class="icon-editt"></td>
+            {{ errores }}
+          </div>
+
         <div class="modal-body">
           <input type="text" v-model="codigo" placeholder="Codigo" />
           <input type="text" v-model="origen" placeholder="Origen" />
           <input type="text" v-model="destino" placeholder="Destino" />
         </div>
-        <div>
-            <span>{{ errores }}</span>
-          </div>
+
+
         <div class="modal-buttons">
           <button id="closeModalBtn" @click="modalEditar = false">
             Cerrar
           </button>
-          <button id="saveBtn" @click="guardarEdicion()">Guardar</button>
+          <button id="saveBtn" @click="guardarEdicion() ">Guardar</button>
         </div>
       </div>
     </div>
@@ -189,9 +191,17 @@ console.log(res);
 buscarRuta()
 limpiarCampos()
 modalRegistrar.value=false
+Swal.fire({
+        icon: "success",
+        title: "Nueva Ruta Agregada Exitosamente",
+        showConfirmButton: false,
+        timer: 1500,
+      });
   }).catch((error)=>{
 if(error.response && error.response.data){
+  alert.value=true
   errores.value=error.response.data.errors[0].msg
+  alerta()
 }else{
 console.log(error);
 }
@@ -243,11 +253,18 @@ function guardarEdicion(){
     console.log(res);
     buscarRuta()
     modalEditar.value=false
+    Swal.fire({
+        icon: "success",
+        title: "Ruta Editada Correctamente",
+        showConfirmButton: false,
+        timer: 1500,
+      });
   }).catch((error)=>{
     errores.value=''
     if(error.response && error.response.data){
-  errores.value=error.response.data.errors[0].msg
-  console.log(errores);
+      alert.value=true
+      errores.value=error.response.data.errors[0].msg
+      alerta()
 }else{
 console.log(error);
 }
