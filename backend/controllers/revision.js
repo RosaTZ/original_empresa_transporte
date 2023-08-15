@@ -7,10 +7,15 @@ const httpRevisiones = {
     postRevisiones:async (req, res) => {
       const { tecnomecanica,fecha_revision,fecha_proxima_revision,descripcion,estado} = req.body
       const revision =await Revision({ tecnomecanica,fecha_revision,fecha_proxima_revision,descripcion,estado })
+      const buscar= await Revision.findOne({tecnomecanica:tecnomecanica})
+      if(buscar){
+      return res.status(400).json({msg:'Ya se encuentra registrado'})
+      }else{
       await revision.save()
       res.json({
         revision
       })
+    }
     },
     getRevisiones:async (req, res) => {
       const buscar= await Revision.find()
@@ -42,10 +47,10 @@ const httpRevisiones = {
         if(buscarRevision){
           res.json(buscarRevision)
         }else{
-          res.json({"mensaje":`La revisión con id ${id} no se encuentra en la base de datos`})
+          res.json({msg:`La revisión con id ${id} no se encuentra en la base de datos`})
         }
       } catch (error) {
-        res.json({"mensaje":"error al actualizar la revisión",error})
+        res.json({msg:"error al actualizar la revisión",error})
       }
     },
       deleteRevision: async (req, res) => {

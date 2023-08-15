@@ -190,9 +190,11 @@ buscarRuta()
 limpiarCampos()
 modalRegistrar.value=false
   }).catch((error)=>{
-if(error.response && error.response.data){
+if(error.response && error.response.data.errors){
   errores.value=error.response.data.errors[0].msg
-}else{
+}else if(error.response && error.response.data){
+  errores.value=error.response.data.msg
+} else{
 console.log(error);
 }
   })
