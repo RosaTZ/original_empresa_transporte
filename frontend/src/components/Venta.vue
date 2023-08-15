@@ -412,43 +412,61 @@ async function renovar() {
 
 <style>
   body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
   }
 
   .ticket {
-    max-width: 300px;
-    margin: 50px auto;
-    background-color: #fff;
-    padding: 20px;
+    width: 30%;
+    /* margin: 50px auto; */
+    margin: auto;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .ticket-header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 5%;
+    background-color: #336699;
+    color: #fff;
+    padding: 1%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
   }
 
   .ticket-info {
     display: grid;
+    padding: 5%;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 2%;
   }
 
   .ticket-info label {
     font-weight: bold;
+    color: #333;
   }
 
   .ticket-info span {
     display: block;
+    color: #666;
   }
 
   .ticket-footer {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 1%;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  .ticket-footer p {
+    color: #333;
+    font-size: 18px;
   }
 </style>
