@@ -11,7 +11,6 @@ export const useClienteStore = defineStore("Cliente", () => {
       console.log(datos);
       return datos;
     } catch (error) {
-
       throw error;
     }
   };

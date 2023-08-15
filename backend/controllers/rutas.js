@@ -9,11 +9,16 @@ const httpRutas = {
   postRutas: async (req, res) => {
     const { codigo, origen, destino, estado } = req.body;
     const ruta = await Ruta({ codigo, origen, destino, estado });
-    await ruta.save();
-    res.json({
-      mensaje: "1 registro insertado!!",
-      ruta,
-    });
+    const buscar= await Ruta.findOne({codigo:codigo})
+    if(buscar){
+      return res.status(400).json({msg:'Ya se encuentra registrado'})
+    }else{
+      await ruta.save();
+      res.json({
+        mensaje: "1 registro insertado!!",
+        ruta,
+      });
+    }
   },
   getRutas: async (req, res) => {
     const buscar = await Ruta.find();
@@ -63,7 +68,7 @@ const httpRutas = {
       return  res.status(404).json({ msg: `ruta con id: ${id} no encontrado` });
       }
     } catch (error) {
-     return res.status(500).json({ error: "Error interno del servidor" });
+     return res.status(500).json({ msg: "Error interno del servidor" });
     }
   },
   deleteRuta: async (req, res) => {

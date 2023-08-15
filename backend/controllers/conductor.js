@@ -10,11 +10,16 @@ const httpConductor = {
         fecha_nacimiento, direccion, estado_civil,estado} = req.body
       const conductor = await Conductor({  cedula,nombre, apellidos, telefono, licencia,categoria_licencia,fecha_vencimiento, 
         fecha_nacimiento, direccion, estado_civil,estado})
-      await conductor.save()
-      res.json({
-        msg: "1 registro insertado!!",
-        conductor
-      })
+        const buscar= await Conductor.findOne({cedula:cedula})
+        if(buscar){
+          return res.status(400).json({msg:'El número de cedula ya se encuentra registrado'})
+        }else{
+          await conductor.save()
+          res.json({
+            msg: "1 registro insertado!!",
+            conductor
+          })
+        }
     },
     getConductor:async (req, res) => {
       const buscar= await Conductor.find()

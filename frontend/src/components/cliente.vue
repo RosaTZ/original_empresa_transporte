@@ -1,4 +1,3 @@
-<!-- aaaaaayyyyyyyyyyyyyyyyyyyyyyy -->
 <template>
     <!-- div del  spinner -->
     <div>
@@ -151,20 +150,20 @@
             <div class="modal-header">
                 <h2>Editar cliente</h2>  
             </div>
+            <div class="alert error" v-if="alert===true">
+              <span>{{ errores }}</span>
+             </div>
             <div class="modal-body">
               <input type="text" v-model="cedula" placeholder="Cedula">
               <input type="text" v-model="nombre" placeholder="Nombre">
               <input type="text" v-model="apellido" placeholder="Apellidos">
               <input type="text" v-model="telefono" placeholder="telefono" />
             </div>
-            <div class="alert error" v-if="alert===true">
-              <span>{{ errores }}</span>
-             </div>
-
         <div class="modal-buttons">
                 <button id="closeModalBtn" @click="modalEditar=false,limpiarCampos()">Cerrar</button>
                 <button id="saveBtn" @click="guardarEdicion()">Guardar</button>
-            </div>
+
+        </div>
     </div>
   </div>
 </div>
@@ -201,6 +200,7 @@ function registrarCliente(){
   }).then( (res)=>{
     limpiarCampos()
     alerta()
+    buscarCliente()
     modalRegistrar.value=false
     Swal.fire({
     icon: 'success',
@@ -210,15 +210,18 @@ function registrarCliente(){
    })
   }).catch((error)=>{
     useCliente.cargando=false
-    if (error.response && error.response.data) {
+    if (error.response && error.response.data.errors) {
       alert.value=true
       errores.value=error.response.data.errors[0].msg
       alerta()
+      }else if(error.response && error.response.data){
+        alert.value=true
+        errores.value=error.response.data.msg
+        alerta()
       } else {
         console.log(error);
       }
     });
-    buscarCliente()
 }
   function limpiarCampos() {
     cedula.value=''
@@ -296,7 +299,7 @@ function registrarCliente(){
   }
   const res= await useCliente.cambiarEstado(p._id,p.estado)
   console.log(res.data);
-  buscarCliente()
+  // buscarCliente();
 }
 function alerta() {
   setTimeout(() => {
@@ -304,7 +307,7 @@ function alerta() {
     alert.value =false
     errores.value=''
     erroresBuscar.value=''
-  }, 1600);
+  }, 3000);
  }
  
   </script>

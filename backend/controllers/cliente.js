@@ -9,8 +9,13 @@ const httpCliente = {
     postCliente:async (req, res) => {
       const { cedula,nombre,apellidos,telefono,estado } = req.body
       const cliente = await Cliente({ cedula,nombre,apellidos,telefono,estado })
-      await cliente.save()
-      res.json({msg:'Registro exitoso',cliente})
+      const buscar= await Cliente.findOne({cedula:cedula})
+      if(buscar){
+       return res.status(400).json({msg:'El número de cedula ya se encuentra registrado'})
+      }else{
+        await cliente.save()
+        res.json({msg:'Registro exitoso',cliente})
+      }
     },
     getCliente:async(req,res)=>{
 const buscar= await Cliente.find()

@@ -9,11 +9,16 @@ const httpTicket = {
     postTicket: async(req, res) => {
       const { codigo, fecha_venta,fecha_salida,hora_salida,precio,cliente,vehiculo,ruta,empresa,numero_puesto} = req.body
       const ticket = await Ticket({ codigo, fecha_venta,fecha_salida,hora_salida,precio,cliente,vehiculo,ruta,empresa,numero_puesto })
+     const buscar= await Ticket.findOne({codigo:codigo});
+     if(buscar){
+     return res.status(400).json({msg:'Ya esta registrado'})
+     }else{
       await ticket.save()
       res.status(200).json({
         msg: "1 registro insertado!!",
         ticket
       })
+     }
     },
     getTicket:async (req, res) => {
       try {

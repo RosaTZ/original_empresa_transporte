@@ -17,11 +17,16 @@ const httpVehiculo = {
       revision_id,
       estado
     });
-    await vehiculo.save();
-    res.json({
-      mensaje: "1 registro insertado!!",
-      vehiculo,
-    });
+    const buscar= await Vehiculo.findOne({placa:placa})
+    if(buscar){
+      return res.status(400).json({msg:'Ya se encuentra registrado'})
+    }else{
+      await vehiculo.save();
+      res.json({
+        mensaje: "1 registro insertado!!",
+        vehiculo,
+      });
+    }
   },
   getVehiculo: async (req, res) => {
     try {

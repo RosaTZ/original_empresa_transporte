@@ -281,9 +281,13 @@ function registrarConductor() {
        timer: 1500})
     })
     .catch((error) => {
-      if (error.response && error.response.data) {
+      if (error.response && error.response.data.errors) {
         alert.value=true
       errores.value=error.response.data.errors[0].msg
+      alerta()
+      }else if(error.response && error.response.data){
+        alert.value=true
+      errores.value=error.response.data.msg
       alerta()
       } else {
         console.log(error);
