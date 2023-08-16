@@ -1,7 +1,15 @@
 <template>
   <div class="q-pa-md mt-2">
+    <!--  -->
+<div>
+  <div>
+    <button @click="cerrar=true">Nueva venta</button>
+    <button @click="modalRenovar=true">Continuar venta</button>
+  </div>
+</div>
+    <!--  -->
     <!-- seleccionar para renovar venta -->
-    <div>
+    <div v-if="modalRenovar===true">
       <div id="vehiculo">
         <div>
           <span>Seleccionar vehiculo</span>
@@ -27,7 +35,9 @@
       </div>
       <span>Fecha venta</span>
         <input type="date" v-model="fecha_venta" />
-        <div><span>{{ errores }}</span></div>
+        <div class="alert error" v-if="alertRenovar===true">
+          <span>{{ errores }}</span>
+        </div>
         <div><button @click="renovar()">Renovar Venta</button></div>
     </div>
 <!-- ................................. -->
@@ -62,12 +72,10 @@
     </q-card>
     </div>
 
-<!-- ------------------------------------ -->
+      <!-- ------------------------------------ -->
 
     <div class="row">
-      <div>
-        <button @click="cerrar = true">Iniciar venta</button>
-      </div>
+      
       <!-- seleccionar para iniciar venta -->
       <div
         class="col"
@@ -119,6 +127,9 @@
       </div>
       <!-- sillas inicio venta -->
       <div class="q row items-start q-gutter" v-if="mostrarSillas === true">
+        <div>
+        <button @click="cerrar = true">Iniciar venta</button>
+      </div>
         <q-card class="my-card">
           <div class="text-h6" style="color: rgb(0, 0, 0)">
             <span>Conductor: {{ conductor }}</span>
@@ -155,7 +166,9 @@
               </div>
             </div>
             <div class="col">
-              <span>{{ errores }}</span>
+              <div class="alert error" v-if="alertCliente===true">
+                <span>{{ errores }}</span>
+              </div>
               <button @click="buscarCliente()">Buscar</button>
               <button @click="registrarCliente()">Guardar</button>
             </div>
@@ -170,8 +183,8 @@
             </div>
           </div>
           <div>
-            <div>
-              <span>{{ errores }}</span>
+            <div class="alert error" v-if="alertTicket===true">
+              <span>{{ errores1 }}</span>
             </div>
             <div class="botones">
               <button @click="registrarTicket()" id="ok">Vender</button>
@@ -278,8 +291,9 @@ let fecha_venta = ref("");
 let fecha_salida = ref("");
 let hora_salida = ref("");
 let errores = ref("");
+let errores1=ref('')
 let numAleatorio = ref(0);
-let cerrar = ref(true);
+let cerrar = ref(false);
 let mostrarCliente = ref(false);
 let mostrarSillas = ref(false);
 let placa = ref("");
@@ -289,6 +303,10 @@ let renovarPuestos=ref([])
 let mostrarPuestos=ref(false)
 let boleto=ref([])
 let modalBoleto=ref(false)
+let alertCliente=ref(false)
+let alertRenovar=ref(false)
+let alertTicket=ref(false)
+let modalRenovar=ref(false)
 
 async function buscarVehiculosRutas() {
   vehiculos.value = await useVehiculo.buscarVehiculo();
@@ -331,13 +349,24 @@ function registrarCliente() {
       nombre: nombre.value,
       apellidos: apellidos.value,
       telefono: telefono.value,
-    })
-    .then((res) => {
+    }).then((res) => {
       console.log(res);
-    })
-    .catch((error) => {
-      if (error.response && error.response.data) {
-        errores.value = error.response.data.errors[0].msg;
+      Swal.fire({
+    icon: 'success',
+    title: 'Registro Exitoso',
+    showConfirmButton: false,
+    timer: 1500
+   })
+   buscarCliente()
+    }).catch((error) => {
+      if (error.response && error.response.data.errors) {
+        alertCliente.value=true
+      errores.value=error.response.data.errors[0].msg
+      alerta()
+      }else if(error.response && error.response.data){
+        alertCliente.value=true
+        errores.value = error.response.data.msg;
+        alerta()
       } else {
         console.log(error);
       }
@@ -371,9 +400,13 @@ function registrarTicket() {
     })
     .catch((error) => {
       if (error.response && error.response.data.errors) {
-        errores.value = error.response.data.errors[0].msg;
+        alertTicket.value=true
+        errores1.value = error.response.data.errors[0].msg;
+        alerta()
       }else if(error.response && error.response.data){
-        errores.value = error.response.data.msg;
+        alertTicket.value=true
+        errores1.value = error.response.data.msg;
+        alerta()
       } else {
         console.log(error);
       }
@@ -395,19 +428,26 @@ async function renovar() {
     mostrarPuestos.value=true
     mostrarSillas.value=false
     mostrarCliente.value=false
-    console.log(renovarVenta.value);
-    console.log(renovarPuestos.value);
   }).catch((error)=>{
-    // errores.value=''
     if (error.response && error.response.data) {
-      console.log(error.response.data);
+      alertRenovar.value=true
         errores.value = error.response.data.msg;
-        console.log(errores.value);
+        alerta()
       } else {
         console.log(error);
       }
   }) 
 }
+
+function alerta() {
+  setTimeout(() => {
+    alertCliente.value=false
+    alertRenovar.value =false
+    alertTicket.value=false
+    errores.value=''
+    errores1.value=''
+  }, 3000);
+ }
 </script>
 
 <style>

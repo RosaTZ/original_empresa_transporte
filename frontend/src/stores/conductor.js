@@ -1,32 +1,46 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import {ref} from "vue"
 
 export const useConductorStore = defineStore("conductor", () => {
+  let cargando=ref(false)
   const registrarConductor = async (info) => {
     try {
+      cargando.value=true
       let datos = await axios.post("http://localhost:4000/api/conductor", info);
       return datos;
     } catch (error) {
+      cargando.value=false
       throw error;
+    }finally{
+      cargando.value=false
     }
   };
   const buscarConductor = async () => {
     try {
+      cargando.value=true
       const buscar = await axios.get(`http://localhost:4000/api/conductor`);
       buscar.data.buscar.reverse()
       return buscar.data.buscar;
     } catch (error) {
+      cargando.value=false
       console.log(error);
+    }finally{
+      cargando.value=false
     }
   };
 
   const buscarConductorCedula = async (cedula) => {
     try {
+      cargando.value=true
       let response = await axios.get(
         `http://localhost:4000/api/conductor/${cedula}`);
       return response.data;
     } catch (error) {
+      cargando.value=false
       throw error
+    }finally{
+      cargando.value=false
     }
   };
   const editarConductor = async (
@@ -43,6 +57,7 @@ export const useConductorStore = defineStore("conductor", () => {
     estado_civil
   ) => {
     try {
+      cargando.value=true
       const response = await axios.put(
         `http://localhost:4000/api/conductor/${id}`,
         {
@@ -60,8 +75,10 @@ export const useConductorStore = defineStore("conductor", () => {
       );
       return response.data;
     } catch (error) {
-      console.error("Error al editar el cliente:", error);
+      cargando.value=false
       throw error;
+    }finally{
+      cargando.value=false
     }
   };
   const cambiarEstado = async (id, estado) => {
@@ -77,6 +94,7 @@ export const useConductorStore = defineStore("conductor", () => {
   };
 
   return {
+    cargando,
     registrarConductor,
     buscarConductor,
     buscarConductorCedula,

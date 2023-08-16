@@ -1,7 +1,20 @@
 <template>
   <div>
-    
+
+    <div class="q-pa-md mt-2" v-if="useTicket.cargando == true">
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+          <div style=" text-align: center; margin-top: 20%;">
+            <q-spinner color="secondary" size="7em" :thickness="10" v-if="useTicket.cargando == true" />
+
+          </div>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
     <!--  -->
+    <div v-if="useTicket.cargando===false">
     <div class="col-2"></div>
     <div class="col-3">
       <div class="buscador">
@@ -218,7 +231,7 @@
       </div>
     </div>
   </div>
-
+</div>
   </div>
 </template>
 

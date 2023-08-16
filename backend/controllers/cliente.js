@@ -14,7 +14,7 @@ const httpCliente = {
        return res.status(400).json({msg:'El número de cedula ya se encuentra registrado'})
       }else{
         await cliente.save()
-        res.json({msg:'Registro exitoso',cliente})
+        res.status(200).json({msg:'Registro exitoso',cliente})
       }
     },
     getCliente:async(req,res)=>{

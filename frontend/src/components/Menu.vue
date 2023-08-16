@@ -58,9 +58,7 @@
         </div>
         <div>
           <!-- BOTON CERRAR SESIONN -->
-          <div>
-            <button @click="cerrar()">Cerrar sesion</button>
-          </div>
+
           <!-- ---------------------------- -->
         </div>
       </q-toolbar>
@@ -197,6 +195,19 @@
               </router-link>
             </q-item-section>
           </q-item>
+          <div>
+            <q-item clickable v-ripple>
+              <q-item-section avatar> 
+                <i class="fa-solid fa-power-off"></i>
+              </q-item-section>
+
+              <q-item-section >
+                <div @click="cerrar()">
+                  Cerrar sesión
+                </div>
+              </q-item-section>
+            </q-item>
+          </div>
         </q-list>
       </q-scroll-area>
 
@@ -210,6 +221,7 @@
           >
           <div class="text-weight-bold">Ros Ruiz</div>
           <div>Administrador</div>
+
         </div>
       </q-img>
     </q-drawer>
@@ -222,15 +234,18 @@
 
       <!-- <router-view /> -->
     </q-page-container>
-<!-- MODAL CERRAR CESION -->
-    <div v-if="modalCerarSesion === true" class="cerrarsesion">
-      <div>
-        Espacio para el modal Desea cerrar cerrarsesion
-        <div>
-          <button @click="modalCerarSesion = false">Cancelar</button>
+
+    <div v-if="modalCerarSesion" class="modal-container">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5>¿Esta seguro de cerrar sesión?</h5>
+
+        <div class="modal-footer">
+          <button class="btn-cancelar" @click="modalCerarSesion = false">Cancelar</button>
           <router-link :to="inicio" @click="cerrarsesion(),(modalCerarSesion=false)">
-            <button>Cerrar sesion</button>
+            <button class="btn-cerrar">Cerrar sesión</button>
           </router-link>
+        </div>
         </div>
       </div>
     </div>
@@ -272,10 +287,88 @@ export default {
 </script> 
 
 <style>
-.cerrarsesion{
+  .modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Un valor mayor que los encabezados de la tabla */
+  }
 
-    background: red;
-  
-}
+  .modal-content {
+    background-color:  #ffffff;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 80%;
+    width: 400px;
+  }
+
+  .modal-header {
+    padding: 20px;
+    background-color: #ffffff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #273273;
+
+  }
+  .modal-header h5{
+    text-align: center;
+    font-weight: 800;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+  .modal-body {
+    padding: 20px;
+  }
+
+  .modal-footer {
+    padding: 20px;
+    background-color: transparent;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  /* Estilos para los botones */
+  .btn-cancelar,
+  .btn-cerrar {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .btn-cancelar {
+    background-color: #dedcdc;
+    color: #273273;
+    font-weight: 600;
+  }
+  .btn-cancelar:hover {
+    background-color: #000000b8;
+    color: #dedcdc;
+    font-weight: 600;
+  }
+  .btn-cerrar {
+    background-color: #dedcdc;
+    color: #e74c3c;
+    font-weight: 600;
+
+  }
+  .btn-cerrar:hover {
+    background-color: #000000b8;
+    color: #dedcdc;
+    font-weight: 600;
+  }
 </style>
 

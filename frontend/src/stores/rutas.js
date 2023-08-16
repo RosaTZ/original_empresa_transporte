@@ -1,8 +1,9 @@
 import {defineStore} from "pinia"
 import axios from "axios"
+import {ref} from "vue"
 
 export const useRutaStore = defineStore("ruta",()=>{
-
+let cargando=ref(false)
     const registrarRuta = async(info)=>{
         try {
             let datos = await axios.post("http://localhost:4000/api/ruta",info)
@@ -14,12 +15,16 @@ export const useRutaStore = defineStore("ruta",()=>{
 
     const buscarRuta=async()=> {
       try {
+cargando.value=true
         const buscar= await axios.get(`http://localhost:4000/api/ruta`)
          console.log(buscar.data.buscar);
          buscar.data.buscar.reverse()
          return buscar.data.buscar
       } catch (error) {
+        cargando.value=true
         console.log(error);
+      }finally{
+        cargando.value=false
       }
         }
         
@@ -57,6 +62,7 @@ export const useRutaStore = defineStore("ruta",()=>{
           }
             }
     return{
+      cargando,
         registrarRuta,
         buscarRuta,
         buscarRutaId,

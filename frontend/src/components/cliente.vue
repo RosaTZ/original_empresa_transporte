@@ -7,7 +7,6 @@
         <div class="col-8">
           <div style=" text-align: center; margin-top: 20%;">
             <q-spinner color="secondary" size="7em" :thickness="10" v-if="useCliente.cargando == true" />
-
           </div>
         </div>
         <div class="col-2"></div>
@@ -205,7 +204,6 @@ function registrarCliente(){
     timer: 1500
    })
   }).catch((error)=>{
-    useCliente.cargando=false
     if (error.response && error.response.data.errors) {
       alert.value=true
       errores.value=error.response.data.errors[0].msg

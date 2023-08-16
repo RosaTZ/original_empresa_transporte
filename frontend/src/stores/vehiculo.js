@@ -1,8 +1,9 @@
 import {defineStore} from "pinia"
 import axios from "axios"
+import {ref} from "vue"
 
 export const useVehiculoStore = defineStore("vehiculo",()=>{
-
+let cargando=ref(false)
     const registrarVehiculo = async(info)=>{
         try {
             const datos = await axios.post("http://localhost:4000/api/vehiculo",info)
@@ -14,10 +15,14 @@ export const useVehiculoStore = defineStore("vehiculo",()=>{
 
     const buscarVehiculo= async () => {
       try {
+        cargando.value=true
         const buscar= await axios.get(`http://localhost:4000/api/vehiculo`)
         return buscar.data
       } catch (error) {
+        cargando.value=true
         console.log(error);
+      }finally{
+        cargando.value=false
       }
         }
         
@@ -64,6 +69,7 @@ export const useVehiculoStore = defineStore("vehiculo",()=>{
             }
 
     return{
+      cargando,
         registrarVehiculo,
         buscarVehiculo,
         buscarVehiculoId,
