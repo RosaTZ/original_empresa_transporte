@@ -153,13 +153,9 @@
             <div
               v-for="(s, i) in sillas"
               :key="i"
-              :style="s.estado === 1 ? 'background:orange' : 'background:beige'"
-            >
-              <img
-                src="../imagenes/sila.png"
-                @click="estado(i), (mostrarCliente = true)"
-              />
-              <button v-if="s.estado===0">Vender</button>
+              :style="s.estado === 1 ? 'background:orange' : 'background:beige'">
+              <img src="../imagenes/sila.png"/>
+              <button @click="estado(i), (mostrarCliente = true)" v-if="s.estado===0">Vender</button>
               <span>{{ s.puesto }}</span>
             </div>
           </q-card-section>
@@ -407,6 +403,7 @@ function registrarTicket() {
       console.log(res);
       buscarTicketId()
       modalBoleto.value=true
+      return true
     })
     .catch((error) => {
       if (error.response && error.response.data.errors) {
@@ -438,6 +435,7 @@ async function renovar() {
     mostrarPuestos.value=true
     mostrarSillas.value=false
     mostrarCliente.value=false
+    modalRenovar.value=false
   }).catch((error)=>{
     if (error.response && error.response.data) {
       alertRenovar.value=true
