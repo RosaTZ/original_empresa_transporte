@@ -182,8 +182,7 @@
 </div>
 
 </div>
-    <!--  -->
-
+<!-- prueba -->
 </div>
   </div>
 </template>

@@ -9,7 +9,11 @@
 </div>
     <!--  -->
     <!-- seleccionar para renovar venta -->
-    <div v-if="modalRenovar===true">
+    <div class="col"
+        style="padding: 5%; margin-top: -5%" v-if="modalRenovar===true">
+        <div class="modal-bg" id="modal">
+          <div class="modal-content">
+            <div class="modal-body">
       <div id="vehiculo">
         <div>
           <span>Seleccionar vehiculo</span>
@@ -38,7 +42,13 @@
         <div class="alert error" v-if="alertRenovar===true">
           <span>{{ errores }}</span>
         </div>
-        <div><button @click="renovar()">Renovar Venta</button></div>
+        <div class="modal-buttons">
+          <button id="saveBtn" @click="renovar()">Renovar Venta</button>
+          <button id="closeModalBtn" @click="modalRenovar=false">Cancelar</button>
+        </div>
+      </div>
+      </div>
+      </div>
     </div>
 <!-- ................................. -->
  <!-- sillas venta renovada -->
@@ -116,8 +126,8 @@
                   <input type="date" v-model="fecha_salida" />
                   <span>Hora salida</span>
                   <input type="time" v-model="hora_salida" />
-                  <div>
-                    <button @click="cerrar = false">Cerrar</button>
+                  <div class="modal-buttons">
+                  <button id="saveBtn" @click="cerrar = false">Continuar</button>
                   </div>
                 </div>
               </div>
@@ -143,13 +153,9 @@
             <div
               v-for="(s, i) in sillas"
               :key="i"
-              :style="s.estado === 1 ? 'background:orange' : 'background:beige'"
-            >
-              <img
-                src="../imagenes/sila.png"
-                @click="estado(i), (mostrarCliente = true)"
-              />
-              <button v-if="s.estado===0">Vender</button>
+              :style="s.estado === 1 ? 'background:orange' : 'background:beige'">
+              <img src="../imagenes/sila.png"/>
+              <button @click="estado(i), (mostrarCliente = true)" v-if="s.estado===0">Vender</button>
               <span>{{ s.puesto }}</span>
             </div>
           </q-card-section>
@@ -397,6 +403,7 @@ function registrarTicket() {
       console.log(res);
       buscarTicketId()
       modalBoleto.value=true
+      return true
     })
     .catch((error) => {
       if (error.response && error.response.data.errors) {
@@ -428,6 +435,7 @@ async function renovar() {
     mostrarPuestos.value=true
     mostrarSillas.value=false
     mostrarCliente.value=false
+    modalRenovar.value=false
   }).catch((error)=>{
     if (error.response && error.response.data) {
       alertRenovar.value=true
