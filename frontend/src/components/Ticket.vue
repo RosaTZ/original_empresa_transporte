@@ -112,7 +112,7 @@
     </div>
     <!--  -->
      <!-- Boleto -->
-<div v-if="modalBoleto===true">
+<div v-if="modalBoleto===true" class="ticketBoleto">
     <div class="ticket" v-for="v in boleto" :key="v">
     <div class="ticket-header">
       <h4>{{ v.empresa.nombre }}</h4>
@@ -318,7 +318,16 @@ function alerta() {
     border-radius: 8px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   }
-
+.modal-footer {
+    padding: 20px;
+    background-color: transparent;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
   .ticket-header {
     text-align: center;
     padding: 10px;
@@ -343,14 +352,6 @@ function alerta() {
   .ticket-info span {
     display: block;
     color: #666;
-  }
-
-  .ticket-footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #f0f0f0;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
   }
 
   .ticket-footer p {
