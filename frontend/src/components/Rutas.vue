@@ -1,7 +1,17 @@
 <template>
   <div>
-
-    
+    <div class="q-pa-md mt-2" v-if="useRuta.cargando == true">
+      <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+          <div style=" text-align: center; margin-top: 20%;">
+            <q-spinner color="secondary" size="7em" :thickness="10" v-if="useRuta.cargando == true" />
+          </div>
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <div v-if="useRuta.cargando===false">
     <div class="q-pa-md mt-2">
       <!-- BOTONES SUPERIORES AGREGAR Y BUSCAR -->
       <div class="row">
@@ -157,6 +167,7 @@
     </div>
     <!-- FIN MODAL EDITAR RUTAS -->
     <!-- ................................. -->
+  </div>
   </div>
 </template>
  

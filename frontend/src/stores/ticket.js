@@ -1,7 +1,9 @@
 import {defineStore} from "pinia"
 import axios from "axios"
+import {ref} from "vue"
 
 export const useTicketStore = defineStore("ticket",()=>{
+  let cargando=ref(false)
 
     const registrarTicket = async(info)=>{
         try {
@@ -14,11 +16,15 @@ export const useTicketStore = defineStore("ticket",()=>{
 
     const buscarTicket= async () => {
       try {
+        cargando.value=true
         const buscar= await axios.get(`http://localhost:4000/api/ticket`)
         console.log(buscar.data.buscar);
         return buscar.data.buscar
       } catch (error) {
+        cargando.value=true
         console.log(error);
+      }finally{
+cargando.value=false
       }
         }
 
@@ -33,7 +39,6 @@ export const useTicketStore = defineStore("ticket",()=>{
             })
             return renovarVenta.data
           } catch (error) {
-            console.log(error);
             throw error
           }
         }
@@ -41,11 +46,14 @@ export const useTicketStore = defineStore("ticket",()=>{
 
         const buscarTicketId = async (codigo) => {
           try {
+            cargando.value=true
             let response = await axios.get(`http://localhost:4000/api/ticket/codigo/${codigo}`);
             return response.data;
           } catch (error) {
-            console.log(error);
+            cargando.value=true
             throw error
+          }finally{
+            cargando.value=false
           }
         };
 
@@ -85,6 +93,7 @@ export const useTicketStore = defineStore("ticket",()=>{
             }
 
     return{
+      cargando,
         registrarTicket,
         buscarTicket,
         buscarTicketRenovar,

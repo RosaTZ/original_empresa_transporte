@@ -18,11 +18,10 @@ export const useClienteStore = defineStore("Cliente", () => {
     try {
     cargando.value=true
     const buscar= await axios.get(`http://localhost:4000/api/cliente`)
-    console.log(buscar.data.buscar);
     buscar.data.buscar.reverse()
      return buscar.data.buscar
     }catch (error) {
-      cargando.value=false
+      cargando.value=true
       console.log("error");
       return error.response.data
     }finally{

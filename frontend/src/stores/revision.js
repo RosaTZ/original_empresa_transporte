@@ -1,8 +1,9 @@
 import {defineStore} from "pinia"
 import axios from "axios"
+import {ref} from "vue"
 
 export const useRevisionStore = defineStore("revision",()=>{
-    let data= ""
+    let cargando=ref(false)
 
     const registrarRevision = async(info)=>{
         try {
@@ -15,11 +16,15 @@ export const useRevisionStore = defineStore("revision",()=>{
 
     const buscarRevision= async()=> {
       try {
+        cargando.value=true
         const buscar= await axios.get(`http://localhost:4000/api/revision`)
         console.log(buscar.data.buscar);
         return buscar.data.buscar
       } catch (error) {
+        cargando.value=true
         console.log(error);
+      }finally{
+        cargando.value=false
       }
         }
         
@@ -59,6 +64,7 @@ export const useRevisionStore = defineStore("revision",()=>{
             }
 
     return{
+      cargando,
         registrarRevision,
         buscarRevision,
         buscarRevisionId,
