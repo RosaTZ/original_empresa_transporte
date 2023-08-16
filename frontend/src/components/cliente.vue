@@ -26,11 +26,8 @@
             </button>
 
             </div>
-            <!-- <q-btn  label="Registrar nuevo cliente" @click="(modalRegistrar=true)" id="nuevo" /> -->
           </div>
-          <div class="col-2"  >
-
-          </div>
+          <div class="col-2"  ></div>
           <div class="col-3" >
             <div class="buscador" >
               <button @click="buscarClienteCedula()" :disabled="cc===''">
@@ -47,7 +44,6 @@
         </div>
         <div class="row">
           <div class="col">
-
       <h6 id="tituloTabla">Clientes </h6>
             <div class="table-container">
           <table class="custom-table">

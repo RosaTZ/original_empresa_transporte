@@ -7,7 +7,7 @@ import {validarCampos} from "../middlewares/validar-campos.js"
 const router= Router()
   
   router.post("/",[
-    check("placa","campo requerido").trim().not().isEmpty(),
+    check("placa","Completar Placa").trim().not().isEmpty(),
     check("placa","La placa debe tener 7 digitos").trim().isLength({min:7,max:7}),
     check("num_vehiculo","Falta el numero del vehiculo").trim().not().isEmpty(),
     check("num_vehiculo","El número del vehiculo debe tener minimo 3 digitos y maximo 4 digitos").trim().isLength({min:3,max:4}),
@@ -27,7 +27,7 @@ const router= Router()
   ] ,httpVehiculo.getVehiculoId)
   
   router.put("/:id",[
-    check("placa","campo requerido").trim().not().isEmpty(),
+    check("placa","Completar placa").trim().not().isEmpty(),
     check("placa","La placa debe tener 7 digitos").trim().isLength({min:7,max:7}),
     check("num_vehiculo","Falta el numero del vehiculo").trim().not().isEmpty(),
     check("num_vehiculo","El número del vehiculo debe tener minimo 3 digitos y maximo 4 digitos").trim().isLength({min:3,max:4}),

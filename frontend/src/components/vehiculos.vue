@@ -1,27 +1,32 @@
 <template>
   <div>
     <div class="q-pa-md mt-2">
+
       <div class="row">
         <div class="col-3"></div>
-        <div class="col-3">
-          <q-btn id="nuevo"
-            label="Registrar nuevo vehiculo"
-            @click="(modalRegistrar = true)"
-          />
-          <div class="col"></div>
-        </div>
-        <div class="col-3">
-          <div class="buscador mt-3">
-            <button @click="buscarVehiculoId()" :disabled="id===''">
-              buscar
+        <div class="col-2">
+          <div class="Agregar">
+            <button>
+              <p class="icon-rev" @click="modalRegistrar = true"></p>
             </button>
-            <input type="text" placeholder="Placa del vehiculo" v-model="id" />
-            <div class="alert error" v-if="alert===true">
-                <span>{{ erroresBuscar }}</span>
-              </div>
           </div>
         </div>
-        <div class="col-3"></div>
+        <div class="col-2"></div>
+        <div class="col-3">
+          <div class="buscador">
+          <button @click="buscarVehiculoId()" :disabled="id===''">
+            <i
+              class="fa-solid fa-magnifying-glass"
+              style="color: #ffffff; font-size: 3.8vh"
+            ></i>
+          </button>
+          <input type="text" v-model="id" placeholder="Buscar Por placa " />
+
+          <div class="alert error" v-if="alert === true">
+            <span>{{ erroresBuscar }}</span>
+          </div>
+        </div>
+        </div>
       </div>
 
       <div class="row">
@@ -49,9 +54,9 @@
                   <td>{{ p.puestos }}</td>
                   <td>{{ p.conductor_id.nombre }}</td>
                   <td>{{ p.revision_id.tecnomecanica }}</td>
-                  <td><i  id="editar" class="fa-regular fa-pen-to-square" @click="editarVehiculo(p) "></i></td>
+                  <td class="icon-edit" @click="(modalEditar = true), editarVehiculo(p)" ></td>
                 <div @click="cambiarEstado(p)" style=" text-align: center; cursor: pointer ; margin-top: 10%;">
-                <td v-if="p.estado===1" style="text-align: center; margin: auto; color: rgb(22, 75, 199); font-weight: bold;">Activo</td>
+                <td v-if="p.estado===1" style="text-align: center; margin: auto; color:green; font-weight: bold;">Activo</td>
                 <td v-else style="color: red; font-weight: bold ;">Inactivo</td>
                 </div>
 
@@ -86,13 +91,9 @@
                   <td>{{ b.num_vehiculo }}</td>
                   <td>{{ b.propietario }}</td>
                   <td>{{ b.puestos }}</td>
-                  <td>                    <i
-                      class="fa-regular fa-pen-to-square"
-                      @click="modalEditar=true"
-                      id="editar"
-                    ></i></td>
+                  <td class="icon-edit" @click="(modalEditar = true), editarVehiculo(p)" ></td>
                    <div @click="cambiarEstado(b)" style=" text-align: center; cursor: pointer ; margin-top: 10%;">
-                <td v-if="b.estado===1" style="text-align: center; margin: auto; color: rgb(22, 75, 199); font-weight: bold;">Activo</td>
+                <td v-if="b.estado===1" style="text-align: center; margin: auto; color:green; font-weight: bold;">Activo</td>
                 <td v-else style="color: red; font-weight: bold ;">Inactivo</td>
                 </div>
                   </tr>
@@ -111,9 +112,10 @@
       <div class="modal-content">
         <div class="modal-header">
           <h2>Agregar vehiculo</h2>
-          <div v-if="alertaError === true">
-            {{ alerta }}
-          </div>
+          <div class="alert error" v-if="alert===true">
+          <td class="icon-editt"></td>
+              {{ errores }}
+            </div>
         </div>
         <div class="modal-body">
           <!-- SELECT DE LOS CONDUCTORES -->
@@ -142,9 +144,6 @@
           <input type="number" v-model="puestos" placeholder="Número de puestos">
         </div>
         <!-- BOTON REGISTRAR NUEVO VEHICULO -->
-        <div id="alertaError">
-          <span>{{ errores }}</span>
-        </div>
         <div class="modal-buttons">
           <button id="closeModalBtn" @click="modalRegistrar = false">
             Cerrar
@@ -157,8 +156,12 @@
     <div class="modal-bg" id="modal" v-if="modalEditar === true">
       <div class="modal-content">
         <div class="modal-header">
-          <h2>Editar vehiculo</h2>
+          <h2>Editar vehiculojj</h2>
         </div>
+        <div class="alert error" v-if="alert===true">
+          <td class="icon-editt"></td>
+              {{ errores }}
+            </div>
         <div class="modal-body">
           <div>
             <select @click="idConductor($event)">
@@ -182,7 +185,6 @@
           <input type="number" v-model="puestos" placeholder="Número de puestos">
         </div>
         <div>
-          <span>{{ errores }}</span>
         </div>
         <div class="modal-buttons">
           <button id="closeModalBtn" @click="modalEditar = false">
@@ -253,9 +255,17 @@ function registrarVehiculo(){
     buscarVehiculo()
     limpiarCampos()
     modalRegistrar.value=false
+    Swal.fire({
+    icon: 'success',
+    title: 'Registro de Vehiculo Exitoso',
+    showConfirmButton: false,
+    timer: 1500
+   })
   }).catch((error)=>{
     if (error.response && error.response.data.errors) {
+      alert.value=true
       errores.value=error.response.data.errors[0].msg
+      alerta()
       }else if(error.response && error.response.data){
         errores.value=error.response.data.msg
       } else {
@@ -309,6 +319,7 @@ async function editarVehiculo(p) {
 }
 
 function guardarEdicion(){
+  console.log("entro");
   useVehiculo.editarVehiculo(
     idEditar.value,
     placa.value,
@@ -321,10 +332,18 @@ function guardarEdicion(){
     console.log(res);
     buscarVehiculo()
     modalEditar.value=false
+    Swal.fire({
+    icon: 'success',
+    title: 'Edicion del Vehiculo Exitoso',
+    showConfirmButton: false,
+    timer: 1500
+   })
   }).then((error)=>{
     errores.value=''
     if (error.response && error.response.data) {
+      alert.value=true
       errores.value=error.response.data.errors[0].msg
+      alerta()
       } else {
         console.log(error);
       }
