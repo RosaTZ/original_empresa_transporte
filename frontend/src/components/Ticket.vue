@@ -113,124 +113,77 @@
     <!--  -->
      <!-- Boleto -->
 <div v-if="modalBoleto===true">
+  <div class="modalPrincipal">
+    <div class="modal-contenido">
     <div class="ticket" v-for="v in boleto" :key="v">
-    <div class="ticket-header">
-      <h4>{{ v.empresa.nombre }}</h4>
+    <div class="ticket-empre">
+      <smoll>{{ v.empresa.nombre }}</smoll>
       <p>{{ v.empresa.nit }}</p>
       <p>{{ v.empresa.direccion }}</p>
       <p>{{ v.empresa.telefono }}</p>
     </div>
     <div class="ticket-info">
-      <div>
+      <div class="cont">
         <label>Fecha de Venta:</label>
         <span> {{ v.fecha_venta }}</span>
       </div>
-      <div>
+      <div class="cont">
         <label>Fecha de Salida:</label>
         <span>{{ v.fecha_salida }}/{{ v.hora_salida }}</span>
       </div>
-      <div>
+      <div class="cont">
         <label>Cédula del Pasajero:</label>
         <span>{{ v.cliente.cedula }}</span>
       </div>
-      <div>
+      <div class="cont">
         <label>Nombre del Pasajero:</label>
         <span>{{ v.cliente.nombre }} {{ v.cliente.apellidos }}</span>
       </div>
-      <div>
+      <div class="cont">
         <label>Teléfono:</label>
         <span>{{ v.cliente.telefono }}</span>
       </div>
-      <div>
+      <div class="cont">
         <label>Vehículo:</label>
         <span>{{ v.vehiculo.placa }}/{{ v.vehiculo.num_vehiculo }}</span>
       </div>
-      <div>
+      <div class="cont">
         <label>Origen:</label>
         <span>{{ v.ruta.origen }}</span>
       </div>
-      <div>
+      <div class="cont">
         <label>Destino:</label>
         <span>{{ v.ruta.destino }}</span>
       </div>
-      <div>
+      <div class="cont">
         <label>Número de Ticket:</label>
         <span>{{ v.codigo }}</span>
       </div>
-      <div>
+      <div class="cont">
         <label>Silla:</label>
         <span>{{ v.numero_puesto }}</span>
       </div>
-      <div>
+      <div class="cont">
         <label>Valor del Ticket:</label>
         <span>{{ v.precio }}</span>
       </div>
     </div>
-    <div class="ticket-footer">
+    <div class="ticket-footerr">
       <p>¡Gracias por su compra!</p>
     </div>
+    
   </div>
+  <button class="close" @click="modalBoleto=false, codigoBoleto=''">
+    <i class="fa-solid fa-xmark" ></i>
+  </button>
+
+  </div>
+>
+</div>
+
 </div>
     <!--  -->
-    <div class="modal" id="ticketModal" v-if="modalBoleto===true">
-    <div class="ticket" v-for="v in boleto" :key="v">
-      <div class="ticket-header">
-        <h4>{{ v.empresa.nombre }}</h4>
-        <p>{{ v.empresa.nit }}</p>
-        <p>{{ v.empresa.direccion }}</p>
-        <p>{{ v.empresa.telefono }}</p>
-      </div>
-      <div class="ticket-info">
-        <div>
-          <label>Fecha de Venta:</label>
-          <span> {{ v.fecha_venta }}</span>
-        </div>
-        <div>
-          <label>Fecha de Salida:</label>
-          <span>{{ v.fecha_salida }}/{{ v.hora_salida }}</span>
-        </div>
-        <div>
-          <label>Cédula del Pasajero:</label>
-          <span>{{ v.cliente.cedula }}</span>
-        </div>
-        <div>
-          <label>Nombre del Pasajero:</label>
-          <span>{{ v.cliente.nombre }} {{ v.cliente.apellidos }}</span>
-        </div>
-        <div>
-          <label>Teléfono:</label>
-          <span>{{ v.cliente.telefono }}</span>
-        </div>
-        <div>
-          <label>Vehículo:</label>
-          <span>{{ v.vehiculo.placa }}/{{ v.vehiculo.num_vehiculo }}</span>
-        </div>
-        <div>
-          <label>Origen:</label>
-          <span>{{ v.ruta.origen }}</span>
-        </div>
-        <div>
-          <label>Destino:</label>
-          <span>{{ v.ruta.destino }}</span>
-        </div>
-        <div>
-          <label>Número de Ticket:</label>
-          <span>{{ v.codigo }}</span>
-        </div>
-        <div>
-          <label>Silla:</label>
-          <span>{{ v.numero_puesto }}</span>
-        </div>
-        <div>
-          <label>Valor del Ticket:</label>
-          <span>{{ v.precio }}</span>
-        </div>
-      </div>
-      <div class="ticket-footer">
-        <p>¡Gracias por su compra!</p>
-      </div>
-    </div>
-  </div>
+
 </div>
   </div>
 </template>
@@ -297,64 +250,96 @@ function alerta() {
     padding: 0;
     background-color: #f4f4f4;
   }
-
-  .modal {
-    display: none;
+  /* Fondo gris del modal */
+  .modalPrincipal{
     position: fixed;
-    top: 0;
+    z-index: 1;
     left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    align-items: center;
-    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.71);
+  }
+/* contenido de la factura */
+  .modal-contenido{
+    padding-top: 2vh;
+    background-color: rgb(255, 255, 255);
+    /* padding: 20px; */
+    border-radius: 5px;
+    position: relative;
+    margin: 6% auto;
+    top: -1%;
+    width: 53%;
+    padding-bottom: 5vh;
+    
   }
 
-  .ticket {
-    width: 80%;
-    max-width: 400px;
+  /*  */
+  .modal-contenido .ticket{
     background-color: #f9f9f9;
     border: 1px solid #ccc;
     border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.411);
+    width: 60%;
   }
-
-  .ticket-header {
+  .modal-contenido .ticket-empre{
+    background-color: #273273;
     text-align: center;
-    padding: 10px;
-    background-color: #336699;
-    color: #fff;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    color: #f4f4f4;
   }
 
-  .ticket-info {
-    display: grid;
-    padding: 10px;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .ticket-info label {
-    font-weight: bold;
-    color: #333;
-  }
-
-  .ticket-info span {
-    display: block;
-    color: #666;
-  }
-
-  .ticket-footer {
+  .modal-contenido .ticket-empre smoll{
     text-align: center;
-    padding: 10px;
-    background-color: #f0f0f0;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    font-size: 4vh;
+    padding: 1%;
+    font-weight: 800;
   }
 
-  .ticket-footer p {
-    color: #333;
-    font-size: 18px;
+  .modal-contenido .ticket-empre p{
+    text-align: center;
+    color: rgb(255, 255, 255);    
   }
+
+
+  .modal-contenido .ticket-info span{
+    text-align: center;
+    color: rgb(108, 97, 97);    
+  }
+  .modal-contenido .ticket-info .cont{
+    text-align: center;
+    color: rgb(196, 40, 40);
+    margin-bottom: 4px;
+  }
+  .modal-contenido .ticket-footerr{
+    text-align: center;
+    padding: 2px;
+
+  }
+  .modal-contenido .ticket-footerr p {
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+  } 
+
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 4vh;
+    width: 6vh;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    background: #d70f01;
+    color: white;
+  }
+  .close:hover{
+    box-shadow: 0 0 20px 1px #d70f01;
+
+  }
+
 </style>
