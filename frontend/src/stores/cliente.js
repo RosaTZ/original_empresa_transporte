@@ -8,7 +8,6 @@ export const useClienteStore = defineStore("Cliente", () => {
   const registrarCliente = async (info) => {
     try {
       let datos = await axios.post("http://localhost:4000/api/cliente", info);
-      console.log(datos);
       return datos;
     } catch (error) {
       throw error;

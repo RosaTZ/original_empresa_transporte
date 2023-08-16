@@ -13,6 +13,7 @@ const router = Router()
     check("numero_puesto","Numero de puesto requerido").trim().not().isEmpty(),
     check("hora_salida","Debe ingresar la hora de salida").trim().not().isEmpty(),
     check("precio","El precio es requerido").trim().not().isEmpty(),
+    check("precio","Precio invalido").trim().isLength({min:4}),
     check("cliente",'No es un ID válido').trim().isMongoId(),
     check("vehiculo",'No es un ID válido').trim().isMongoId(),
     check("ruta",'No es un ID válido').trim().isMongoId(),
