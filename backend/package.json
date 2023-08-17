@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "server": "node index.js",
-    "client": "cd.. && npm run dev --prefix ./frontend",
+    "client": "cd.. && npm run build --prefix ./frontend",
     "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "author": "Veronica Vega - Rosa Torres",
