@@ -11,6 +11,7 @@ const router= Router()
     check("codigo","El codigo debe estar entre 2 y 5 digitos").trim().isLength({min:2,max:5}),
     check("origen","Complete el campo origen").trim().not().isEmpty(),
     check("destino","Complete el campo destino").trim().not().isEmpty(),
+    check("hora_salida","Debe ingresar la hora de salida").trim().not().isEmpty(),
     validarCampos
   ], httpRutas.postRutas)
 
@@ -27,6 +28,7 @@ const router= Router()
     check("codigo","El codigo debe estar entre 2 y 5 digitos").trim().isLength({min:2,max:5}),
     check("origen","Complete el campo origen").trim().not().isEmpty(),
     check("destino","Complete el campo destino").trim().not().isEmpty(),
+    check("hora_salida","Debe ingresar la hora de salida").trim().not().isEmpty(),
     validarCampos
   ],httpRutas.putRutas)
 

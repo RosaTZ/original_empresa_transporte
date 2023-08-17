@@ -52,6 +52,7 @@
                   <th>Codigo</th>
                   <th>Origen</th>
                   <th>Destino</th>
+                  <th>Hora salida</th>
                   <th>Editar</th>
                   <th>Estado</th>
                 </tr>
@@ -61,6 +62,7 @@
                   <td>{{ p.codigo }}</td>
                   <td>{{ p.origen }}</td>
                   <td>{{ p.destino }}</td>
+                  <td>{{ p.hora_salida }}</td>
                   <!-- BOTON EDITAR RUTA -->
                   <td class="icon-edit" @click="(modalEditar = true), editarRuta(p)" ></td>
                   <!-- CAMBIO DE ESTADO -->
@@ -89,6 +91,7 @@
             <th>Codigo</th>
             <th>Origen</th>
             <th>Destino</th>
+            <th>Hora salida</th>
             <th>Editar</th>
             <th>Estado</th>
           </tr>
@@ -98,6 +101,7 @@
             <td>{{ b.codigo }}</td>
             <td>{{ b.origen }}</td>
             <td>{{ b.destino }}</td>
+            <td>{{ b.hora_salida }}</td>
             <td class="icon-edit" @click="(modalEditar = true), editarRuta(b)" ></td>
             <div @click="cambiarEstado(b)" style=" text-align: center; cursor: pointer">
                 <td v-if="b.estado===1" style="text-align: center; margin: auto; color: green; font-weight: bold;">Activo</td>
@@ -126,9 +130,14 @@
           </div>
         </div>
         <div class="modal-body">
+          <span>Codigo</span>
           <input type="text" v-model="codigo" placeholder="Codigo" />
+          <span>Origen</span>
           <input type="text" v-model="origen" placeholder="origen" />
+          <span>Destino</span>
           <input type="text" v-model="destino" placeholder="Destino" />
+          <span>Hora salida</span>
+          <input type="time" v-model="hora_salida" placeholder="Hora salida">
         </div>
         <div class="modal-buttons">
           <button id="closeModalBtn" @click="modalRegistrar = false">
@@ -151,9 +160,14 @@
           </div>
 
         <div class="modal-body">
+          <span>Codigo</span>
           <input type="text" v-model="codigo" placeholder="Codigo" />
-          <input type="text" v-model="origen" placeholder="Origen" />
+          <span>Origen</span>
+          <input type="text" v-model="origen" placeholder="origen" />
+          <span>Destino</span>
           <input type="text" v-model="destino" placeholder="Destino" />
+          <span>Hora salida</span>
+          <input type="time" v-model="hora_salida" placeholder="Hora salida">
         </div>
 
 
@@ -184,6 +198,7 @@ let rutas = ref();
 let codigo = ref("");
 let origen = ref("");
 let destino = ref("");
+let hora_salida=ref('')
 let id = ref("");
 let buscar = ref([]);
 let alert=ref(false)
@@ -196,6 +211,7 @@ function registrarRuta(){
     codigo: codigo.value,
     origen: origen.value,
     destino: destino.value,
+    hora_salida:hora_salida.value,
     estado:1
   }).then((res)=>{
 console.log(res);
@@ -222,6 +238,7 @@ function limpiarCampos(){
   codigo.value='',
   origen.value='',
   destino.value=''
+  hora_salida.value=''
 }
 async function buscarRuta() {
   rutas.value = await useRuta.buscarRuta();
@@ -250,6 +267,7 @@ async function editarRuta(p) {
   codigo.value=p.codigo;
   origen.value = p.origen;
   destino.value = p.destino;
+  hora_salida.value=p.hora_salida;
   modalEditar.value = true;
   modalRegistrar.value = false;
   console.log(idEditar.value);
@@ -259,7 +277,8 @@ function guardarEdicion(){
     idEditar.value,
     codigo.value,
     origen.value,
-    destino.value
+    destino.value,
+    hora_salida.value
   ).then((res)=>{
     console.log(res);
     buscarRuta()

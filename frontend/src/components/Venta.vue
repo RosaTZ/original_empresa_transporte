@@ -55,6 +55,9 @@
 <div class="q row items-start q-gutter" v-if="(mostrarPuestos===true)" style="width: 40%;">
   <q-card class="my-card">
     <div class="text-h6" style="color: rgb(0, 0, 0)">
+            <span>Ruta: {{ origen }} - {{ destino }}</span>
+          </div>
+    <div class="text-h6" style="color: rgb(0, 0, 0)">
             <span>Conductor: {{ conductor }}</span>
           </div>
           <div class="text-subtitle2" style="color: rgb(0, 0, 0)">
@@ -73,8 +76,8 @@
             renovarPuestos.includes(i + 1) ? 'background:orange':s.estado === 1 ? 'background:orange' : 'background:beige'
           "
         >
-          <img src="../imagenes/sila.png" @click="(mostrarCliente=true)"/>
-          <button v-if="!renovarPuestos.includes(i + 1)">Vender</button>
+          <img src="../imagenes/sila.png" @click="estado(i), (mostrarCliente = true)"/>
+          <!-- <button v-if="!renovarPuestos.includes(i + 1)||s.estado===0" >Vender</button> -->
           <span>{{ i+1 }}</span>
         </div>
       </div>
@@ -124,10 +127,11 @@
                   <input type="date" v-model="fecha_venta" />
                   <span>Fecha Salida</span>
                   <input type="date" v-model="fecha_salida" />
-                  <span>Hora salida</span>
-                  <input type="time" v-model="hora_salida" />
+                  <div>
+              <span>{{ errores }}</span>
+            </div>
                   <div class="modal-buttons">
-                  <button id="saveBtn" @click="cerrar = false">Continuar</button>
+                  <button id="saveBtn" @click="continuar()">Continuar</button>
                   </div>
                 </div>
               </div>
@@ -142,6 +146,9 @@
       </div>
         <q-card class="my-card">
           <div class="text-h6" style="color: rgb(0, 0, 0)">
+            <span>Ruta: {{ origen }} - {{ destino }}</span>
+          </div>
+          <div class="text-h6" style="color: rgb(0, 0, 0)">
             <span>Conductor: {{ conductor }}</span>
           </div>
           <div class="text-subtitle2" style="color: rgb(0, 0, 0)">
@@ -154,8 +161,7 @@
               v-for="(s, i) in sillas"
               :key="i"
               :style="s.estado === 1 ? 'background:orange' : 'background:beige'">
-              <img src="../imagenes/sila.png"/>
-              <button @click="estado(i), (mostrarCliente = true)" v-if="s.estado===0">Vender</button>
+              <img src="../imagenes/sila.png"  @click="estado(i), (mostrarCliente = true)"/>
               <span>{{ s.puesto }}</span>
             </div>
           </q-card-section>
@@ -217,7 +223,7 @@
       </div>
       <div>
         <label>Fecha de Salida:</label>
-        <span>{{ v.fecha_salida }}/{{ v.hora_salida }}</span>
+        <span>{{ v.fecha_salida }} / {{ hora_salida }}</span>
       </div>
       <div>
         <label>Cédula del Pasajero:</label>
@@ -285,7 +291,7 @@ let rutaId = ref([]);
 let puestos = ref(0);
 let precio=ref(0)
 let sillas = ref([]);
-let asiento = ref(0);
+let asiento = ref(null);
 let cedula = ref("");
 let nombre = ref("");
 let apellidos = ref("");
@@ -304,6 +310,8 @@ let mostrarCliente = ref(false);
 let mostrarSillas = ref(false);
 let placa = ref("");
 let conductor = ref("");
+let origen=ref('')
+let destino=ref('')
 let renovarVenta = ref([]);
 let renovarPuestos=ref([])
 let mostrarPuestos=ref(false)
@@ -313,6 +321,7 @@ let alertCliente=ref(false)
 let alertRenovar=ref(false)
 let alertTicket=ref(false)
 let modalRenovar=ref(false)
+let estadoCliente=ref(null)
 
 async function buscarVehiculosRutas() {
   vehiculos.value = await useVehiculo.buscarVehiculo();
@@ -320,10 +329,14 @@ async function buscarVehiculosRutas() {
   empresa.value = await useEmpresa.buscarEmpresa();
 }
 buscarVehiculosRutas();
+
 function seleccionarVehiculo() {
-  puestos.value = vehiculoId.value.puestos;
   vehiculo_id.value = vehiculoId.value._id;
-  placa.value = vehiculoId.value.placa;
+ if(vehiculo_id.value===undefined){
+errores.value='Complete todos los campos'
+  }else{
+    puestos.value = vehiculoId.value.puestos;
+    placa.value = vehiculoId.value.placa;
   conductor.value = vehiculoId.value.conductor_id.nombre;
   sillas.value=[]
   for (let i = 0; i < puestos.value; i++) {
@@ -332,21 +345,49 @@ function seleccionarVehiculo() {
       estado: 0,
     });
   }
+    return true
+  }
 }
 function seleccionarRuta() {
   ruta_id.value = rutaId.value._id;
+  hora_salida.value= rutaId.value.hora_salida;
+  origen.value=rutaId.value.origen;
+  destino.value=rutaId.value.destino;
+  if(ruta_id.value===undefined){
+    errores.value='Complete todos los campos'
+  }else{
+    return true
+  }
+}
+function continuar(){
+
+    if(seleccionarVehiculo()===true&&seleccionarRuta()===true){
+    cerrar.value = false
+  }
 }
 function estado(i) {
   asiento.value = i;
-  sillas.value[asiento.value].estado = 1;
 }
 function buscarCliente() {
   useCliente.buscarClienteCedula(cedula.value).then((res) => {
-    cliente_id.value = res.cliente[0]._id;
+    estadoCliente.value= res.cliente[0].estado;
+    if(estadoCliente.value==0){
+      alertCliente.value=true
+        errores.value = 'Cliente inactivo';
+        alerta()
+    }else{
+      cliente_id.value = res.cliente[0]._id;
     nombre.value = res.cliente[0].nombre;
     apellidos.value = res.cliente[0].apellidos;
     telefono.value = res.cliente[0].telefono;
-  });
+    }
+  }).catch((error)=>{
+    if(error.response && error.response.data){
+        alertCliente.value=true
+        errores.value = error.response.data.msg;
+        alerta()
+      }
+  })
 }
 function registrarCliente() {
   useCliente
@@ -363,7 +404,8 @@ function registrarCliente() {
     showConfirmButton: false,
     timer: 1500
    })
-   buscarCliente()
+ 
+   registrarTicket()
     }).catch((error) => {
       if (error.response && error.response.data.errors) {
         alertCliente.value=true
@@ -380,18 +422,19 @@ function registrarCliente() {
 }
 function buscarTicket() {
   useTicket.buscarTicket().then((res) => {
-    numAleatorio.value = res.length+1;
+    numAleatorio.value = res.length;
   });
 }
 buscarTicket();
 function registrarTicket() {
+  numAleatorio.value+1
   useTicket
     .registrarTicket({
       codigo: numAleatorio.value,
       fecha_venta: fecha_venta.value,
       fecha_salida: fecha_salida.value,
-      numero_puesto: asiento.value,
-      hora_salida: hora_salida.value,
+      numero_puesto: asiento.value+1,
+      // hora_salida: hora_salida.value,
       precio:precio.value,
       estado: 1,
       cliente: cliente_id.value,
@@ -403,14 +446,21 @@ function registrarTicket() {
       console.log(res);
       buscarTicketId()
       modalBoleto.value=true
-      return true
-    })
+      limpiarCampos() 
+      sillas.value[asiento.value].estado = 1;
+      console.log('Sillas');
+      console.log(sillas.value);
+      console.log('Sillas');
+      buscarTicket()
+   })
     .catch((error) => {
       if (error.response && error.response.data.errors) {
         alertTicket.value=true
         errores1.value = error.response.data.errors[0].msg;
+        console.log(errores1.value);
         alerta()
       }else if(error.response && error.response.data){
+        console.log(error.response);
         alertTicket.value=true
         errores1.value = error.response.data.msg;
         alerta()
@@ -422,7 +472,6 @@ function registrarTicket() {
 async function buscarTicketId(){
   await useTicket.buscarTicketId(numAleatorio.value).then((res)=>{
 boleto.value=res.ticket
-console.log(boleto.value);
   })
 }
 async function renovar() {
@@ -430,8 +479,12 @@ async function renovar() {
   rutaId.value._id,
   vehiculoId.value._id,
   fecha_venta.value).then((res)=>{
+    console.log('##########');
+    console.log(res);
+    console.log('##########');
     renovarVenta.value=res.ticket
     renovarPuestos.value=res.puestos
+    fecha_salida.value=res.fecha_salida
     mostrarPuestos.value=true
     mostrarSillas.value=false
     mostrarCliente.value=false
@@ -455,6 +508,16 @@ function alerta() {
     errores.value=''
     errores1.value=''
   }, 3000);
+ }
+
+ function limpiarCampos() {
+  cedula.value='',
+  nombre.value='',
+  apellidos.value='',
+  telefono.value='',
+  precio.value='',
+  puestos.value=null
+  // numAleatorio.value=0
  }
 </script>
 

@@ -2,6 +2,8 @@
 // get listar todos los vehiculo
 // get buscar 1 vehiculo
 // post actualizar { todo excepto matricula }
+
+
 import Vehiculo from "../models/vehiculo.js";
 
 const httpVehiculo = {

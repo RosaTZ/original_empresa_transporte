@@ -59,7 +59,6 @@ cargando.value=false
 
         const editarTicket = async (id,fecha_venta,
           fecha_salida,
-          hora_salida,
           precio,
           cliente,
           vehiculo,
@@ -69,7 +68,6 @@ cargando.value=false
             const response = await axios.put(`http://localhost:4000/api/ticket/${id}`, {
               fecha_venta:fecha_venta,
               fecha_salida:fecha_salida,
-              hora_salida:hora_salida,
               precio:precio,
               cliente:cliente,
               vehiculo:vehiculo,

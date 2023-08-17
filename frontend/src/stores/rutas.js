@@ -38,12 +38,13 @@ cargando.value=true
             throw error
           }
         };
-        const editarRuta = async (id,codigo, origen, destino) => {
+        const editarRuta = async (id,codigo, origen, destino, hora_salida) => {
           try {
             const response = await axios.put(`http://localhost:4000/api/ruta/${id}`, {
               codigo:codigo,
               origen:origen,
               destino:destino,
+              hora_salida
             });
             return response.data;
           } catch (error) {

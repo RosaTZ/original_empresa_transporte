@@ -4,7 +4,6 @@ const ticketSchema=new mongoose.Schema({
     fecha_venta :{type:String, default:Date.now,require: true},
     fecha_salida :{type:String, require: true},
     numero_puesto:{type:Number,require:true},
-    hora_salida:{type:String,require:true},
     precio:{type:Number,require:true},
     estado:{type:Number,default:1,require:true},
     createdAt :{ type : Date, default : Date.now},

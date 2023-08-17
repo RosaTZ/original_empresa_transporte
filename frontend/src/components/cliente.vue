@@ -193,9 +193,9 @@ function registrarCliente(){
    apellidos: apellido.value,
    telefono: telefono.value,
   }).then( (res)=>{
+    buscarCliente()
     limpiarCampos()
     alerta()
-    buscarCliente()
     modalRegistrar.value=false
     Swal.fire({
     icon: 'success',
@@ -254,7 +254,6 @@ function registrarCliente(){
   telefono.value=p.telefono
   modalEditar.value=true
   modalRegistrar.value=false
-  console.log(idEditar.value);
 }
 
   function guardarEdicion(){
@@ -265,16 +264,16 @@ function registrarCliente(){
       apellido.value,
       telefono.value
     ).then((res)=>{
+      modalEditar.value=false
+       modalRegistrar.value=false
       limpiarCampos()
     alerta()
-    modalRegistrar.value=false
-    modalEditar.value=false
+    buscarCliente()
     Swal.fire({
       icon: 'success',
       title: 'Edicion Exitosa',
       showConfirmButton: false,
        timer: 1500})
-       buscarCliente()
     }).catch((error)=>{
       if (error.response && error.response.data) {
         alert.value=true

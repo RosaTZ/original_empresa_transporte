@@ -7,8 +7,8 @@ import Ruta from "../models/rutas.js";
 
 const httpRutas = {
   postRutas: async (req, res) => {
-    const { codigo, origen, destino, estado } = req.body;
-    const ruta = await Ruta({ codigo, origen, destino, estado });
+    const { codigo, origen, destino, hora_salida ,estado } = req.body;
+    const ruta = await Ruta({ codigo, origen, destino, hora_salida ,estado });
     const buscar= await Ruta.findOne({codigo:codigo})
     if(buscar){
       return res.status(400).json({msg:'Ya se encuentra registrado'})

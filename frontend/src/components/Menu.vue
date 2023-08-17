@@ -242,8 +242,8 @@
 
         <div class="modal-footer">
           <button class="btn-cancelar" @click="modalCerarSesion = false">Cancelar</button>
-          <router-link :to="inicio" @click="cerrarsesion(),(modalCerarSesion=false)">
-            <button class="btn-cerrar">Cerrar sesión</button>
+          <router-link :to="inicio">
+            <button class="btn-cerrar" @click="cerrarsesion()">Cerrar sesión</button>
           </router-link>
         </div>
         </div>
@@ -265,6 +265,7 @@ function cerrar() {
 function cerrarsesion() {
   sessionStorage.removeItem("token");
   inicio.value = "/";
+  modalCerarSesion.value=false
 }
 
 export default {

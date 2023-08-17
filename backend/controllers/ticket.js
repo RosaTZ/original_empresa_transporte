@@ -7,11 +7,17 @@ import Vehiculo from "../models/vehiculo.js"
 
 const httpTicket = {
     postTicket: async(req, res) => {
-      const { codigo, fecha_venta,fecha_salida,hora_salida,precio,cliente,vehiculo,ruta,empresa,numero_puesto} = req.body
-      const ticket = await Ticket({ codigo, fecha_venta,fecha_salida,hora_salida,precio,cliente,vehiculo,ruta,empresa,numero_puesto })
+      const { codigo, fecha_venta,fecha_salida,precio,cliente,vehiculo,ruta,empresa,numero_puesto} = req.body
+      const ticket = await Ticket({ codigo, fecha_venta,fecha_salida,precio,cliente,vehiculo,ruta,empresa,numero_puesto })
      const buscar= await Ticket.findOne({codigo:codigo});
+     const buscarPuesto= await Ticket.findOne({
+      numero_puesto:numero_puesto,
+      vehiculo:vehiculo
+    })
      if(buscar){
      return res.status(400).json({msg:'Ya esta registrado'})
+     }else if(buscarPuesto){
+      return res.status(400).json({msg:`El puesto #${numero_puesto} ya esta vendido`})
      }else{
       await ticket.save()
       res.status(200).json({
@@ -83,7 +89,6 @@ const httpTicket = {
      const ticketActualizado={
       fecha_venta:req.body.fecha_venta,
       fecha_salida : req.body.fecha_salida,
-      hora_salida: req.body.hora_salida,
       precio: req.body.precio,
       cliente: req.body.cliente,
       vehiculo: req.body.vehiculo,
