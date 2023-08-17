@@ -254,6 +254,7 @@ function registrarCliente(){
   telefono.value=p.telefono
   modalEditar.value=true
   modalRegistrar.value=false
+  modalBuscar.value=false
 }
 
   function guardarEdicion(){
@@ -266,6 +267,7 @@ function registrarCliente(){
     ).then((res)=>{
       modalEditar.value=false
        modalRegistrar.value=false
+       modalBuscar.value=false
       limpiarCampos()
     alerta()
     buscarCliente()

@@ -82,7 +82,7 @@
                 <td>{{ p.licencia }}</td>
                 <td>{{ p.categoria_licencia }}</td>
                 <td>{{ p.fecha_vencimiento }}</td>
-                <td  class="icon-edit" @click="modalEditar=true, editarConductor(p)"></td>
+                <td  class="icon-edit" @click="editarConductor(p)"></td>
                 <div @click="cambiarEstado(p)" style=" text-align: center; cursor: pointer; margin-top: 10%;">
                 <td v-if="p.estado===1" style="text-align: center; margin: auto; color: green; font-weight: bold;">Activo</td>
                 <td v-else style="color: red; font-weight: bold ;">Inactivo</td>
@@ -121,7 +121,7 @@
                     <td>{{ p.apellidos }}</td>
                     <td>{{ p.telefono }}</td>
                     <td>{{ p.direccion }}</td>
-                    <td  class="icon-edit" @click="modalEditar=true, editarConductor(p)"></td>
+                    <td  class="icon-edit" @click="editarConductor(p)"></td>
                 <div @click="cambiarEstado(p)" style=" text-align: center; cursor: pointer; margin-top: 10%;">
                 <td v-if="p.estado===1" style="text-align: center; margin: auto; color: green; font-weight: bold;">Activo</td>
                 <td v-else style="color: red; font-weight: bold ;">Inactivo</td>
@@ -360,6 +360,7 @@ async function editarConductor(p) {
   estado_civil.value = p.estado_civil;
   modalEditar.value = true;
   modalRegistrar.value = false;
+  modalBuscar.value=false
 }
 
 function guardarEdicion(){
@@ -381,6 +382,7 @@ function guardarEdicion(){
     modalRegistrar.value=false
     buscarConductor()
     modalEditar.value=false
+    modalBuscar.value=false
     Swal.fire({
       icon: 'success',
       title: 'Edicion Exitosa',

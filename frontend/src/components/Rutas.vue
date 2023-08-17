@@ -64,7 +64,7 @@
                   <td>{{ p.destino }}</td>
                   <td>{{ p.hora_salida }}</td>
                   <!-- BOTON EDITAR RUTA -->
-                  <td class="icon-edit" @click="(modalEditar = true), editarRuta(p)" ></td>
+                  <td class="icon-edit" @click="editarRuta(p)" ></td>
                   <!-- CAMBIO DE ESTADO -->
                 <div @click="cambiarEstado(p)" style=" margin: auto; display: flex; text-align: center; cursor: pointer">
                 <td v-if="p.estado===1" style="text-align: center; margin: auto; color: green; font-weight: bold;">Activo</td>
@@ -102,7 +102,7 @@
             <td>{{ b.origen }}</td>
             <td>{{ b.destino }}</td>
             <td>{{ b.hora_salida }}</td>
-            <td class="icon-edit" @click="(modalEditar = true), editarRuta(b)" ></td>
+            <td class="icon-edit" @click="editarRuta(b)" ></td>
             <div @click="cambiarEstado(b)" style=" text-align: center; cursor: pointer">
                 <td v-if="b.estado===1" style="text-align: center; margin: auto; color: green; font-weight: bold;">Activo</td>
                 <td v-else style="color: red; font-weight: bold ;">Inactivo</td>
@@ -270,6 +270,7 @@ async function editarRuta(p) {
   hora_salida.value=p.hora_salida;
   modalEditar.value = true;
   modalRegistrar.value = false;
+  modalBuscar.value=false
   console.log(idEditar.value);
 }
 function guardarEdicion(){
@@ -283,6 +284,8 @@ function guardarEdicion(){
     console.log(res);
     buscarRuta()
     modalEditar.value=false
+    modalBuscar.value=false
+    modalRegistrar.value=false
     Swal.fire({
         icon: "success",
         title: "Ruta Editada Correctamente",

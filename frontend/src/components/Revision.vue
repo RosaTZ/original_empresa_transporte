@@ -62,7 +62,7 @@
                   <td>{{ p.descripcion }}</td>
                   <td
                     class="icon-edit"
-                    @click="(modalEditar = true), editarRevision(p)"
+                    @click="editarRevision(p)"
                   ></td>
                   <div
                     @click="cambiarEstado(p)"
@@ -263,7 +263,7 @@
                   <td>{{ p.descripcion }}</td>
                   <td
                     class="icon-edit"
-                    @click="(modalEditar = true), editarRevision(p)"
+                    @click="editarRevision(p)"
                   ></td>
                   <div
                     @click="cambiarEstado(p)"
@@ -400,9 +400,9 @@ async function editarRevision(p) {
   fecha_proxima_revision.value = p.fecha_proxima_revision;
   fecha_revision.value = p.fecha_revision;
   descripcion.value = p.descripcion;
-  modalEditar.value = true;
-  modalRegistrar.value = false;
-  console.log(idEditar.value);
+  modalEditar.value=true
+  modalRegistrar.value=false
+  modalBuscar.value=false
 }
 
 function guardarEdicion() {
@@ -418,7 +418,8 @@ function guardarEdicion() {
       console.log(res);
       buscarRevision();
       modalEditar.value = false;
-
+      modalRegistrar.value=false;
+      modalBuscar.value=false
       Swal.fire({
         icon: "success",
         title: "Edicion completada con Exito",
