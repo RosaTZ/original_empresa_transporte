@@ -231,6 +231,7 @@ codigoBoleto.value=t.codigo
 await useTicket.buscarTicketId(codigoBoleto.value).then((res)=>{
 boleto.value=res.ticket
 modalBoleto.value=true
+modalBuscar.value=false
   })
 }
 function alerta() {
