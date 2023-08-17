@@ -7,7 +7,7 @@ export const useAdminStore = defineStore("admin",()=>{
     const inicio = async (email,password) =>{
         try {
             loading.value=true
-            let datos = await axios.post(`https://empresa-transporte.onrender.com/administrador/token`,{
+            let datos = await axios.post(`https://empresa-transporte.onrender.com/api/administrador/token`,{
                 email:email,password:password
             });
         return datos
