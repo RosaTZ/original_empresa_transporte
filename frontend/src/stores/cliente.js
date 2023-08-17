@@ -7,7 +7,7 @@ export const useClienteStore = defineStore("Cliente", () => {
 
   const registrarCliente = async (info) => {
     try {
-      let datos = await axios.post("http://localhost:4000/api/cliente", info);
+      let datos = await axios.post("https://empresa-transporte.onrender.com/api/cliente", info);
       return datos;
     } catch (error) {
       throw error;
@@ -16,7 +16,7 @@ export const useClienteStore = defineStore("Cliente", () => {
   const buscarCliente= async()=> {
     try {
     cargando.value=true
-    const buscar= await axios.get(`http://localhost:4000/api/cliente`)
+    const buscar= await axios.get(`https://empresa-transporte.onrender.com/api/cliente`)
     buscar.data.buscar.reverse()
      return buscar.data.buscar
     }catch (error) {
@@ -30,7 +30,7 @@ export const useClienteStore = defineStore("Cliente", () => {
     }
     const buscarClienteCedula = async (cedula) => {
       try {
-        let response = await axios.get(`http://localhost:4000/api/cliente/cedula/${cedula}`);
+        let response = await axios.get(`https://empresa-transporte.onrender.com/api/cliente/cedula/${cedula}`);
         return response.data;
       } catch (error) {
        throw error
@@ -39,7 +39,7 @@ export const useClienteStore = defineStore("Cliente", () => {
   
   const editarCliente = async (id,cedula,nombre, apellidos, telefono) => {
     try {
-      const response = await axios.put(`http://localhost:4000/api/cliente/${id}`, {
+      const response = await axios.put(`https://empresa-transporte.onrender.com/api/cliente/${id}`, {
         cedula:cedula,
         nombre:nombre,
         apellidos:apellidos,
@@ -53,7 +53,7 @@ export const useClienteStore = defineStore("Cliente", () => {
 
   const cambiarEstado= async (id,estado)=>{
 try {
-  let res= await axios.patch(`http://localhost:4000/api/cliente/${id}`,
+  let res= await axios.patch(`https://empresa-transporte.onrender.com/api/cliente/${id}`,
   {estado:estado})
   console.log(res.data);
   return res.data

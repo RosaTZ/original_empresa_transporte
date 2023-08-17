@@ -6,7 +6,7 @@ export const useRutaStore = defineStore("ruta",()=>{
 let cargando=ref(false)
     const registrarRuta = async(info)=>{
         try {
-            let datos = await axios.post("http://localhost:4000/api/ruta",info)
+            let datos = await axios.post("https://empresa-transporte.onrender.com/api/ruta",info)
             return datos
         } catch (error) {
           throw error;
@@ -16,7 +16,7 @@ let cargando=ref(false)
     const buscarRuta=async()=> {
       try {
 cargando.value=true
-        const buscar= await axios.get(`http://localhost:4000/api/ruta`)
+        const buscar= await axios.get(`https://empresa-transporte.onrender.com/api/ruta`)
          console.log(buscar.data.buscar);
          buscar.data.buscar.reverse()
          return buscar.data.buscar
@@ -30,7 +30,7 @@ cargando.value=true
         
         const buscarRutaId = async (codigo) => {
           try {
-            let response = await axios.get(`http://localhost:4000/api/ruta/${codigo}`, {
+            let response = await axios.get(`https://empresa-transporte.onrender.com/api/ruta/${codigo}`, {
               params: { codigo:codigo },
             });
             return response.data;
@@ -40,7 +40,7 @@ cargando.value=true
         };
         const editarRuta = async (id,codigo, origen, destino, hora_salida) => {
           try {
-            const response = await axios.put(`http://localhost:4000/api/ruta/${id}`, {
+            const response = await axios.put(`https://empresa-transporte.onrender.com/api/ruta/${id}`, {
               codigo:codigo,
               origen:origen,
               destino:destino,
@@ -54,7 +54,7 @@ cargando.value=true
 
         const cambiarEstado= async (id,estado)=>{
           try {
-            let res= await axios.patch(`http://localhost:4000/api/ruta/${id}`,
+            let res= await axios.patch(`https://empresa-transporte.onrender.com/api/ruta/${id}`,
             {estado:estado})
             console.log(res.data);
             return res.data

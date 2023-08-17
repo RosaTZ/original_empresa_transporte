@@ -7,7 +7,7 @@ export const useRevisionStore = defineStore("revision",()=>{
 
     const registrarRevision = async(info)=>{
         try {
-            let datos = await axios.post("http://localhost:4000/api/revision",info)
+            let datos = await axios.post("https://empresa-transporte.onrender.com/api/revision",info)
             return datos
         } catch (error) {
           throw error;
@@ -17,7 +17,7 @@ export const useRevisionStore = defineStore("revision",()=>{
     const buscarRevision= async()=> {
       try {
         cargando.value=true
-        const buscar= await axios.get(`http://localhost:4000/api/revision`)
+        const buscar= await axios.get(`https://empresa-transporte.onrender.com/api/revision`)
         console.log(buscar.data.buscar);
         return buscar.data.buscar
       } catch (error) {
@@ -30,7 +30,7 @@ export const useRevisionStore = defineStore("revision",()=>{
         
         const buscarRevisionId = async (tecnomecanica) => {
           try {
-            let response = await axios.get(`http://localhost:4000/api/revision/${tecnomecanica}`, {
+            let response = await axios.get(`https://empresa-transporte.onrender.com/api/revision/${tecnomecanica}`, {
               params: { tecnomecanica:tecnomecanica }
             });
             return response.data.revision;
@@ -41,7 +41,7 @@ export const useRevisionStore = defineStore("revision",()=>{
 
         const editarRevision = async (id, tecnomecanica,fecha_revision, fecha_proxima_revision,descripcion) => {
           try {
-            const response = await axios.put(`http://localhost:4000/api/revision/${id}`, {
+            const response = await axios.put(`https://empresa-transporte.onrender.com/api/revision/${id}`, {
               tecnomecanica:tecnomecanica,
               fecha_revision:fecha_revision,
               fecha_proxima_revision:fecha_proxima_revision,
@@ -54,7 +54,7 @@ export const useRevisionStore = defineStore("revision",()=>{
         };
         const cambiarEstado= async (id,estado)=>{
           try {
-            let res= await axios.patch(`http://localhost:4000/api/revision/${id}`,
+            let res= await axios.patch(`https://empresa-transporte.onrender.com/api/revision/${id}`,
             {estado:estado})
             console.log(res.data);
             return res.data

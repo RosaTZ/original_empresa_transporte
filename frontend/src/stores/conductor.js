@@ -7,7 +7,7 @@ export const useConductorStore = defineStore("conductor", () => {
   const registrarConductor = async (info) => {
     try {
       cargando.value=true
-      let datos = await axios.post("http://localhost:4000/api/conductor", info);
+      let datos = await axios.post("https://empresa-transporte.onrender.com/api/conductor", info);
       return datos;
     } catch (error) {
       cargando.value=false
@@ -19,7 +19,7 @@ export const useConductorStore = defineStore("conductor", () => {
   const buscarConductor = async () => {
     try {
       cargando.value=true
-      const buscar = await axios.get(`http://localhost:4000/api/conductor`);
+      const buscar = await axios.get(`https://empresa-transporte.onrender.com/api/conductor`);
       buscar.data.buscar.reverse()
       return buscar.data.buscar;
     } catch (error) {
@@ -34,7 +34,7 @@ export const useConductorStore = defineStore("conductor", () => {
     try {
       cargando.value=true
       let response = await axios.get(
-        `http://localhost:4000/api/conductor/${cedula}`);
+        `https://empresa-transporte.onrender.com/api/conductor/${cedula}`);
       return response.data;
     } catch (error) {
       cargando.value=false
@@ -59,7 +59,7 @@ export const useConductorStore = defineStore("conductor", () => {
     try {
       cargando.value=true
       const response = await axios.put(
-        `http://localhost:4000/api/conductor/${id}`,
+        `https://empresa-transporte.onrender.com/api/conductor/${id}`,
         {
           cedula:cedula,
           nombre:nombre,
@@ -83,7 +83,7 @@ export const useConductorStore = defineStore("conductor", () => {
   };
   const cambiarEstado = async (id, estado) => {
     try {
-      let res = await axios.patch(`http://localhost:4000/api/conductor/${id}`, {
+      let res = await axios.patch(`https://empresa-transporte.onrender.com/api/conductor/${id}`, {
         estado: estado,
       });
       console.log(res.data);

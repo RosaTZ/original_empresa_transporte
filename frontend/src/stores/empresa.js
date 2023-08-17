@@ -4,7 +4,7 @@ import axios from "axios"
 export const useEmpresaStore = defineStore("empresa",()=>{
    const buscarEmpresa= async()=> {
     try {
-      const buscar= await axios.get(`http://localhost:4000/api/empresa`)
+      const buscar= await axios.get(`https://empresa-transporte.onrender.com/api/empresa`)
       console.log(buscar.data.buscar);
       return buscar.data.buscar
     } catch (error) {
