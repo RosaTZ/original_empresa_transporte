@@ -20,7 +20,7 @@ class Server{
 
 conectarDB(){
     mongoose.connect(process.env.MONGODB)
-    .then(() => console.log('Connected! yeah'));
+    .then(() => console.log(`conectado a la base de datos ${process.env.MONGODB}`));
 }
     routes(){
         this.app.use('/api/administrador',administrador)
