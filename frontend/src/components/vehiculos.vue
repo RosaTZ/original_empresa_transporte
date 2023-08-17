@@ -238,23 +238,26 @@ let revisiones=ref([])
 let alert=ref(false)
 let alertE=ref(false)
 let erroresBuscar=ref('')
+let conductorFiltrado=ref([])
 const useVehiculo = useVehiculoStore();
 const useConductor=useConductorStore();
 const useRevision=useRevisionStore()
 
 async function traerConductor() {
   conductores.value = await useConductor.buscarConductor();
+  // conductorFiltrado.value=conductores.value.filter(c=>c.estado===1)
+  // console.log('vvvvvvvvvvvvvvvvvv',conductorFiltrado.value);
 }
 async function traerRevision() {
   revisiones.value = await useRevision.buscarRevision();
 }
 async function idConductor(e){
 conductorId.value=e.target.value
-console.log('conductor '+conductorId.value);
+console.log('conductor ',conductorId.value);
 }
 async function idRevision(e){
 revisionId.value=e.target.value
-console.log('revision '+revisionId.value);
+console.log('revision ',revisionId.value);
 }
 
 function registrarVehiculo(){

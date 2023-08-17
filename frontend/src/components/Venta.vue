@@ -25,9 +25,9 @@
                   <span>Seleccionar vehiculo</span>
                   <select
                     v-model="vehiculoId"
-                    @click="seleccionarVehiculo(), (mostrarSillas = true),(mostrarPuestos=false)"
+                    @click="buscarVehiculosRutas(),seleccionarVehiculo(),(mostrarSillas = true),(mostrarPuestos=false)"
                   >
-                    <option v-for="(v, i) in vehiculos" :key="i" :value="v">
+                    <option v-for="(v, i) in vehiculoFiltrados" :key="i" :value="v">
                       {{ v.placa }}
                     </option>
                   </select>
@@ -36,8 +36,8 @@
               <div id="rutas">
                 <div>
                   <span>Seleccionar Ruta</span>
-                  <select v-model="rutaId" @click="seleccionarRuta()">
-                    <option v-for="(r, i) in rutas" :key="i" :value="r">
+                  <select v-model="rutaId" @click="buscarVehiculosRutas(),seleccionarRuta()">
+                    <option v-for="(r, i) in rutaFiltrada" :key="i" :value="r">
                       {{ r.codigo }} {{ r.origen }} {{ r.destino }}
                     </option>
                   </select>
@@ -259,10 +259,14 @@ let estadoCliente=ref(null)
 let mostrarFecha=ref(false)
 let alert=ref(false)
 let botonNuevaVenta=ref(false)
+let vehiculoFiltrados=ref([])
+let rutaFiltrada=ref([])
 
 async function buscarVehiculosRutas() {
   vehiculos.value = await useVehiculo.buscarVehiculo();
+  vehiculoFiltrados.value=vehiculos.value.filter(v=>v.estado===1)
   rutas.value = await useRuta.buscarRuta();
+  rutaFiltrada.value= rutas.value.filter(r=>r.estado===1)
   empresa.value = await useEmpresa.buscarEmpresa();
 }
 buscarVehiculosRutas();
