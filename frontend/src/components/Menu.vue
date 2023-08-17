@@ -2,7 +2,7 @@
   <q-layout view="hHh lpR fFf">
     <q-header bordered class="bg-secondary text-white">
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer()" />
         <div>
           <svg
             width="200"
@@ -236,15 +236,13 @@
     </q-page-container>
 
     <div v-if="modalCerarSesion" class="modal-container">
-      <div class="modal-content">
-        <div class="modal-header">
+      <div class="modal-conte">
+        <div class="modal-head">
           <h5>¿Esta seguro de cerrar sesión?</h5>
-
-        <div class="modal-footer">
+        <div class="modal-foo">
           <button class="btn-cancelar" @click="modalCerarSesion = false">Cancelar</button>
-          <router-link :to="inicio">
             <button class="btn-cerrar" @click="cerrarsesion()">Cerrar sesión</button>
-          </router-link>
+
         </div>
         </div>
       </div>
@@ -253,9 +251,13 @@
   </q-layout>
 </template>
 
-<script>
-import { ref } from "vue";
-let empresa = ref("Cootransporte");
+<script setup>
+import { ref  } from "vue";
+import {useRouter ,useRoute} from 'vue-router'
+const leftDrawerOpen = ref(false);
+const router =useRouter()
+const route =useRoute()
+
 let inicio = ref("");
 let modalCerarSesion = ref(false);
 function cerrar() {
@@ -264,112 +266,107 @@ function cerrar() {
 
 function cerrarsesion() {
   sessionStorage.removeItem("token");
-  inicio.value = "/";
+  router.push('/')
   modalCerarSesion.value=false
 }
 
-export default {
-  setup() {
-    const leftDrawerOpen = ref(false);
+function toggleLeftDrawer() {
+          leftDrawerOpen.value = !leftDrawerOpen.value;
+}
 
-    return {
-      cerrar,
-      modalCerarSesion,
-      cerrarsesion,
-      inicio,
-      empresa,
-      leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
-    };
-  },
-};
 </script> 
 
 <style>
-  .modal-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
+    .modal-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+  
+    .modal-conte {
+      background-color:  #d6b1b1;
+      border-radius: 5px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      max-width: 80%;
+      width: 400px;
+    }
+  
+    .modal-head {
+      padding: 20px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      background-color: #273273;  
+    }
 
-  .modal-content {
-    background-color:  #ffffff;
-    border-radius: 5px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 80%;
-    width: 400px;
-  }
-
-  .modal-header {
-    padding: 20px;
-    background-color: #ffffff;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    background-color: #273273;
-
-  }
-  .modal-header h5{
-    text-align: center;
-    font-weight: 800;
-    font-weight: bold;
-    color: #ffffff;
-  }
-
-  .modal-body {
-    padding: 20px;
-  }
-
-  .modal-footer {
-    padding: 20px;
-    background-color: transparent;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-
-  /* Estilos para los botones */
-  .btn-cancelar,
-  .btn-cerrar {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .btn-cancelar {
-    background-color: #dedcdc;
-    color: #273273;
-    font-weight: 600;
-  }
-  .btn-cancelar:hover {
-    background-color: #000000b8;
-    color: #dedcdc;
-    font-weight: 600;
-  }
-  .btn-cerrar {
-    background-color: #dedcdc;
-    color: #e74c3c;
-    font-weight: 600;
-
-  }
-  .btn-cerrar:hover {
-    background-color: #000000b8;
-    color: #dedcdc;
-    font-weight: 600;
-  }
-</style>
+    .modal-head h5{
+      text-align: center;
+      font-weight: 800;
+      font-weight: bold;
+      color: #000000;
+      background-color: rgb(233, 236, 242);
+      text-align: center;
+      padding: 9%;
+      border-radius: 7px;
+      font-size: 15px;
+      margin-top: -2%;
+      /* border: solid 2px; */
+      cursor: pointer;
+      box-shadow:  0px 0px 10px 2px rgb(65, 66, 69);
+    }
+  
+    .modal-body {
+      padding: 20px;
+    }
+  
+    .modal-foo {
+      padding: 20px;
+      background-color: transparent;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+  
+    /* Estilos para los botones */
+    .btn-cancelar,
+    .btn-cerrar {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  
+    .btn-cancelar {
+      background-color: #dedcdc;
+      color: #273273;
+      font-weight: 600;
+    }
+    .btn-cancelar:hover {
+      background-color: #000000b8;
+      color: #dedcdc;
+      font-weight: 600;
+    }
+    .btn-cerrar {
+      background-color: #dedcdc;
+      color: #e74c3c;
+      font-weight: 600;
+  
+    }
+    .btn-cerrar:hover {
+      background-color: #000000b8;
+      color: #dedcdc;
+      font-weight: 600;
+    }
+  </style>
 

@@ -60,7 +60,7 @@ const httpTicket = {
       .populate("vehiculo")
       .populate("cliente")
        if(ticket.length===0){
-       return res.status(404).json({msg:'Ruta o vehiculo sin coincidencias'})
+       return res.status(404).json({msg:'Venta sin iniciar'})
        }
       const puestos=ticket.map(t=>t.numero_puesto)
       return res.json({ticket,puestos})

@@ -3,89 +3,11 @@
     <!--  -->
 <div>
   <div>
-    <button @click="cerrar=true">Nueva venta</button>
-    <button @click="modalRenovar=true">Continuar venta</button>
+    <button @click="cerrar=true,botonNuevaVenta=true,mostrarFecha=true,limpiarCampos()">Nueva venta</button>
+    <button @click="cerrar=true,botonNuevaVenta=false,mostrarFecha=false,limpiarCampos()">Continuar venta</button>
   </div>
 </div>
     <!--  -->
-    <!-- seleccionar para renovar venta -->
-    <div class="col"
-        style="padding: 5%; margin-top: -5%" v-if="modalRenovar===true">
-        <div class="modal-bg" id="modal">
-          <div class="modal-content">
-            <div class="modal-body">
-      <div id="vehiculo">
-        <div>
-          <span>Seleccionar vehiculo</span>
-          <select
-            v-model="vehiculoId"
-            @click="seleccionarVehiculo()"
-          >
-            <option v-for="(v, i) in vehiculos" :key="i" :value="v">
-              {{ v.placa }}
-            </option>
-          </select>
-        </div>
-      </div>
-      <div id="rutas">
-        <div>
-          <span>Seleccionar Ruta</span>
-          <select v-model="rutaId" @click="seleccionarRuta()">
-            <option v-for="(r, i) in rutas" :key="i" :value="r">
-              {{ r.codigo }} {{ r.origen }} {{ r.destino }}
-            </option>
-          </select>
-        </div>
-      </div>
-      <span>Fecha venta</span>
-        <input type="date" v-model="fecha_venta" />
-        <div class="alert error" v-if="alertRenovar===true">
-          <span>{{ errores }}</span>
-        </div>
-        <div class="modal-buttons">
-          <button id="saveBtn" @click="renovar()">Renovar Venta</button>
-          <button id="closeModalBtn" @click="modalRenovar=false">Cancelar</button>
-        </div>
-      </div>
-      </div>
-      </div>
-    </div>
-<!-- ................................. -->
- <!-- sillas venta renovada -->
-<div class="q row items-start q-gutter" v-if="(mostrarPuestos===true)" style="width: 40%;">
-  <q-card class="my-card">
-    <div class="text-h6" style="color: rgb(0, 0, 0)">
-            <span>Ruta: {{ origen }} - {{ destino }}</span>
-          </div>
-    <div class="text-h6" style="color: rgb(0, 0, 0)">
-            <span>Conductor: {{ conductor }}</span>
-          </div>
-          <div class="text-subtitle2" style="color: rgb(0, 0, 0)">
-            <span>Placa Vehiculo: {{ placa }}</span>
-          </div>
-          <q-card-section
-            style="display: grid; grid-template-columns: repeat(3, 2fr)"
-          >
-      <div
-        v-for="(s, i) in sillas"
-        :key="i"
-        @click="estado(i)"
-      >
-        <div
-          :style="
-            renovarPuestos.includes(i + 1) ? 'background:orange':s.estado === 1 ? 'background:orange' : 'background:beige'
-          "
-        >
-          <img src="../imagenes/sila.png" @click="estado(i), (mostrarCliente = true)"/>
-          <!-- <button v-if="!renovarPuestos.includes(i + 1)||s.estado===0" >Vender</button> -->
-          <span>{{ i+1 }}</span>
-        </div>
-      </div>
-    </q-card-section>
-    </q-card>
-    </div>
-
-      <!-- ------------------------------------ -->
 
     <div class="row">
       
@@ -125,13 +47,23 @@
                 <div>
                   <span>Fecha venta</span>
                   <input type="date" v-model="fecha_venta" />
-                  <span>Fecha Salida</span>
+                  <div v-if="mostrarFecha===true">
+                    <span>Fecha Salida</span>
                   <input type="date" v-model="fecha_salida" />
-                  <div>
-              <span>{{ errores }}</span>
-            </div>
-                  <div class="modal-buttons">
-                  <button id="saveBtn" @click="continuar()">Continuar</button>
+                  </div>
+                  
+                  <div class="alert error" v-if="alert === true">
+            <td class="icon-editt"></td>
+            {{ errores }}
+          </div>
+                  <div class="modal-buttons" v-if="botonNuevaVenta===false">
+                    <!-- <button id="saveBtn" @click="continuar(),renovar()">Continuar</button> -->
+                    <button id="no" @click="cerrar=false,limpiarCampos()">Cancelar</button>
+                  <button id="saveBtn" @click="renovar()">Renovar venta</button>
+                  </div>
+                  <div class="modal-buttons" v-if="botonNuevaVenta===true">
+                    <button id="no" @click="cerrar=false,limpiarCampos()">Cancelar</button>
+                    <button id="saveBtn" @click="continuar()">Nueva venta</button>
                   </div>
                 </div>
               </div>
@@ -157,10 +89,13 @@
           <q-card-section
             style="display: grid; grid-template-columns: repeat(3, 1fr)"
           >
+          <!-- :style="renovarPuestos.includes(i + 1) ? 'background:orange':s.estado === 1 ? 'background:orange' : 'background:beige'"  -->
             <div
               v-for="(s, i) in sillas"
               :key="i"
-              :style="s.estado === 1 ? 'background:orange' : 'background:beige'">
+              :style="
+            s.estado === 1 ? 'background:orange' : 'background:beige'
+          ">
               <img src="../imagenes/sila.png"  @click="estado(i), (mostrarCliente = true)"/>
               <span>{{ s.puesto }}</span>
             </div>
@@ -318,10 +253,12 @@ let mostrarPuestos=ref(false)
 let boleto=ref([])
 let modalBoleto=ref(false)
 let alertCliente=ref(false)
-let alertRenovar=ref(false)
 let alertTicket=ref(false)
 let modalRenovar=ref(false)
 let estadoCliente=ref(null)
+let mostrarFecha=ref(false)
+let alert=ref(false)
+let botonNuevaVenta=ref(false)
 
 async function buscarVehiculosRutas() {
   vehiculos.value = await useVehiculo.buscarVehiculo();
@@ -360,8 +297,15 @@ function seleccionarRuta() {
   }
 }
 function continuar(){
-
-    if(seleccionarVehiculo()===true&&seleccionarRuta()===true){
+        if(fecha_salida.value===''){
+          alert.value=true
+            errores.value='Complete todos los campos'
+            alerta()
+          }else if(fecha_venta.value===''){
+            alert.value=true
+            errores.value='Complete todos los campos'
+            alerta()
+          }else if(seleccionarVehiculo()===true&&seleccionarRuta()===true){
     cerrar.value = false
   }
 }
@@ -425,6 +369,37 @@ function buscarTicket() {
     numAleatorio.value = res.length;
   });
 }
+async function renovar() {
+ useTicket.buscarTicketRenovar( 
+  rutaId.value._id,
+  vehiculoId.value._id,
+  fecha_venta.value).then((res)=>{
+    fecha_salida.value=res.ticket[0].fecha_salida
+    renovarVenta.value=res.ticket
+    renovarPuestos.value=res.puestos
+    renovarPuestos.value.forEach((n)=>{
+      sillas.value[n-1].estado=1
+    })
+    mostrarPuestos.value=true
+    mostrarSillas.value=true
+    mostrarCliente.value=false
+    modalRenovar.value=false
+    cerrar.value=false
+  }).catch((error)=>{
+    if (error.response && error.response.data) {
+      alert.value=true
+        errores.value = error.response.data.msg;
+        alerta()
+        if(errores.value==='Venta sin iniciar'){
+          console.log(errores.value);
+          mostrarFecha.value=true
+          botonNuevaVenta.value=true
+        }
+      } else {
+        console.log(error);
+      }
+  }) 
+}
 buscarTicket();
 function registrarTicket() {
   numAleatorio.value+1
@@ -434,7 +409,6 @@ function registrarTicket() {
       fecha_venta: fecha_venta.value,
       fecha_salida: fecha_salida.value,
       numero_puesto: asiento.value+1,
-      // hora_salida: hora_salida.value,
       precio:precio.value,
       estado: 1,
       cliente: cliente_id.value,
@@ -448,9 +422,6 @@ function registrarTicket() {
       modalBoleto.value=true
       limpiarCampos() 
       sillas.value[asiento.value].estado = 1;
-      console.log('Sillas');
-      console.log(sillas.value);
-      console.log('Sillas');
       buscarTicket()
    })
     .catch((error) => {
@@ -471,40 +442,16 @@ function registrarTicket() {
 }
 async function buscarTicketId(){
   await useTicket.buscarTicketId(numAleatorio.value).then((res)=>{
+    console.log();
 boleto.value=res.ticket
   })
-}
-async function renovar() {
- useTicket.buscarTicketRenovar( 
-  rutaId.value._id,
-  vehiculoId.value._id,
-  fecha_venta.value).then((res)=>{
-    console.log('##########');
-    console.log(res);
-    console.log('##########');
-    renovarVenta.value=res.ticket
-    renovarPuestos.value=res.puestos
-    fecha_salida.value=res.fecha_salida
-    mostrarPuestos.value=true
-    mostrarSillas.value=false
-    mostrarCliente.value=false
-    modalRenovar.value=false
-  }).catch((error)=>{
-    if (error.response && error.response.data) {
-      alertRenovar.value=true
-        errores.value = error.response.data.msg;
-        alerta()
-      } else {
-        console.log(error);
-      }
-  }) 
 }
 
 function alerta() {
   setTimeout(() => {
     alertCliente.value=false
-    alertRenovar.value =false
     alertTicket.value=false
+    alert.value=false
     errores.value=''
     errores1.value=''
   }, 3000);
@@ -517,7 +464,10 @@ function alerta() {
   telefono.value='',
   precio.value='',
   puestos.value=null
-  // numAleatorio.value=0
+  vehiculo_id.value=''
+  ruta_id.value=''
+  fecha_venta.value=''
+  fecha_salida.value=''
  }
 </script>
 
