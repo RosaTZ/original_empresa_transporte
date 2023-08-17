@@ -5,7 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server":"node index.js",
+    "client":"cd.. && npm run dev --prefix ./frontend",
+    "start":"concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "author": "Veronica Vega - Rosa Torres",
   "license": "ISC",
@@ -21,5 +24,8 @@
     "mongodb": "^5.7.0",
     "mongoose": "^7.4.2",
     "nodemon": "^3.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
   }
 }
