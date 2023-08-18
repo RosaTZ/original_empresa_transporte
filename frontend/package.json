@@ -6,11 +6,12 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "start":"npm run build"
+    "start": "npm run build"
   },
   "dependencies": {
     "@quasar/extras": "^1.16.5",
     "axios": "^1.4.0",
+    "jspdf": "^2.5.1",
     "pinia": "^2.1.6",
     "quasar": "^2.12.4",
     "sweetalert2": "^11.7.22",

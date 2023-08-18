@@ -9,9 +9,14 @@ const httpTicket = {
     postTicket: async(req, res) => {
       const { codigo, fecha_venta,fecha_salida,precio,cliente,vehiculo,ruta,empresa,numero_puesto} = req.body
       const currentDate = new Date();
-      if (new Date(fecha_venta) < currentDate) {
-        return res.status(400).json({ msg: 'La fecha de venta no puede ser menor que la fecha actual' });
-      }
+currentDate.setHours(0, 0, 0, 0); 
+console.log(currentDate);
+const fechaVenta = new Date(fecha_venta);
+fechaVenta.setHours(0, 0, 0, 0); 
+console.log(fechaVenta);
+if (fechaVenta < currentDate) {
+  return res.status(400).json({ msg: 'La fecha de venta no puede ser menor que la fecha actual' });
+}
       const ticket = await Ticket({ codigo, fecha_venta,fecha_salida,precio,cliente,vehiculo,ruta,empresa,numero_puesto })
      const buscar= await Ticket.findOne({codigo:codigo});
      const buscarPuesto= await Ticket.findOne({

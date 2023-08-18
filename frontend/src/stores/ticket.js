@@ -7,7 +7,7 @@ export const useTicketStore = defineStore("ticket",()=>{
 
     const registrarTicket = async(info)=>{
         try {
-            let datos = await axios.post("https://empresa-transporte.onrender.com/api/ticket",info)
+            let datos = await axios.post("http://localhost:4000/api/ticket",info)
             return datos
         } catch (error) {
           throw error;
@@ -17,7 +17,7 @@ export const useTicketStore = defineStore("ticket",()=>{
     const buscarTicket= async () => {
       try {
         cargando.value=true
-        const buscar= await axios.get(`https://empresa-transporte.onrender.com/api/ticket`)
+        const buscar= await axios.get(`http://localhost:4000/api/ticket`)
         console.log(buscar.data.buscar);
         return buscar.data.buscar
       } catch (error) {
@@ -30,7 +30,7 @@ cargando.value=false
 
         const buscarTicketRenovar= async(ruta,vehiculo,fecha_venta)=>{
           try {
-           let renovarVenta=  await axios.get(`https://empresa-transporte.onrender.com/api/ticket/renovar`,{
+           let renovarVenta=  await axios.get(`http://localhost:4000/api/ticket/renovar`,{
               params:{
                ruta: ruta,
                vehiculo:vehiculo,
@@ -47,7 +47,7 @@ cargando.value=false
         const buscarTicketId = async (codigo) => {
           try {
             cargando.value=true
-            let response = await axios.get(`https://empresa-transporte.onrender.com/api/ticket/codigo/${codigo}`);
+            let response = await axios.get(`http://localhost:4000/api/ticket/codigo/${codigo}`);
             return response.data;
           } catch (error) {
             cargando.value=true
@@ -65,7 +65,7 @@ cargando.value=false
           ruta,
           numero_puesto) => {
           try {
-            const response = await axios.put(`https://empresa-transporte.onrender.com/api/ticket/${id}`, {
+            const response = await axios.put(`http://localhost:4000/api/ticket/${id}`, {
               fecha_venta:fecha_venta,
               fecha_salida:fecha_salida,
               precio:precio,
@@ -81,7 +81,7 @@ cargando.value=false
         };
         const cambiarEstado= async (id,estado)=>{
           try {
-            let res= await axios.patch(`https://empresa-transporte.onrender.com/api/ticket/${id}`,
+            let res= await axios.patch(`http://localhost:4000/api/ticket/${id}`,
             {estado:estado})
             console.log(res.data);
             return res.data
