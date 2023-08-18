@@ -53,7 +53,7 @@
             style="margin-top: 12%"
             color="amarillo"
           >
-            Ros Ruiz
+            Ros Ruizzzzzzzzzzzzzzzzzzz
           </div>
         </div>
         <div>
@@ -256,9 +256,9 @@ import { ref  } from "vue";
 import {useRouter ,useRoute} from 'vue-router'
 const leftDrawerOpen = ref(false);
 const router =useRouter()
-const route =useRoute()
+// const route =useRoute()
 
-let inicio = ref("");
+// let inicio = ref("");
 let modalCerarSesion = ref(false);
 function cerrar() {
   modalCerarSesion.value = true;
@@ -274,7 +274,7 @@ function toggleLeftDrawer() {
           leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 
-</script> 
+</script>
 
 <style>
     .modal-container {

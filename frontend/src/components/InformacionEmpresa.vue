@@ -76,7 +76,7 @@
                   <li>{{ e.nit }}</li>
                 </ul>
                 <ul>
-                  <li>Teléfono:</li>
+                  <li>Teléfono de la empresa:</li>
                   <li>{{ e.telefono }}</li>
                 </ul>
                 <ul>
