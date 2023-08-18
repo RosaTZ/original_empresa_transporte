@@ -378,47 +378,54 @@ p {
 
 /* FORMULARIO DE VENTA */
 .formulario {
-    border: 1px solid #ccc;
+    border: 1px solid #eaeaea;
     padding: 20px;
     width: 400px;
     text-align: center;
     margin: 0 auto; /* Centrar horizontalmente */
     margin-top: 50px; /* Separación desde arriba */
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.638);
   }
 
   .resaltado {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
-    color:#26A69A;
+    color:#273273;
   }
 
-  .formulario span {
-    display: block;
-    margin-top: 10px;
+  .formulario input:hover {
     font-weight: bold;
+    cursor: pointer;
+    color: #000000;
   }
 
   .formulario input {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
-    border: 1px solid #ccc;
+    margin-bottom: 2%;
+    border: none;
+    outline: none !important;
     border-radius: 4px;
+    border-bottom: 1px gray solid;
   }
 
 
 
 
-/* #ok{
+ #ok{
     margin-top: 20px;
     margin: 2%;
     padding: 1% 2%;
-    background-color: #26A69A;
+    background-color:#273273;
+
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
+} 
 
 #no{
     margin-top: 20px;
@@ -430,27 +437,32 @@ p {
     border-radius: 4px;
     cursor: pointer;
 
-} */
-
-#nuevo{
-    margin: auto;
+}
+.botonesasiento{
     display: flex;
-    background-color: #ffa600d2;
-    color: rgb(255, 255, 255);
-    text-transform: capitalize;
-    margin-top:  10px;
-   
+    gap :10%;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 3%;
+}
+.botonesasiento button{
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 30%;
+}
+.botonesasiento #buscarU{
+    background-color: #273273;
+    color: white;
+    cursor:pointer;
 }
 
-
-
-#nuevo:hover {
-    background-color: #ffa600;
-    font-weight: bold;
-    box-shadow:  1px 0 20px 1px  #ffa600;
-
-    
-
+.botonesasiento #guardarC{
+    background-color: green;
+    color: white;
+    cursor:pointer;
 }
 
 /* informacion inicio */
