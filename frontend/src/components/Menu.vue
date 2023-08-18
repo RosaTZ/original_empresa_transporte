@@ -254,11 +254,10 @@
 <script setup>
 import { ref  } from "vue";
 import {useRouter ,useRoute} from 'vue-router'
-import { useTicketStore } from "../stores/ticket";
 const leftDrawerOpen = ref(false);
 const router =useRouter()
 const route =useRoute()
-const useTicket=useTicketStore()
+
 let inicio = ref("");
 let modalCerarSesion = ref(false);
 function cerrar() {
