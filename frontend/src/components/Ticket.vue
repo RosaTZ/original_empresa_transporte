@@ -257,8 +257,6 @@ function alerta() {
 function generarpdf() {
   console.log("entro a generar pdf");
   const a =boleto.value[0]
-  const informacion = a.cliente.nombre;
-  console.log(informacion);
 
   const doc = new jsPDF({
     orientation :'portrait',
@@ -267,14 +265,22 @@ function generarpdf() {
   })
   doc.setFont("helvetica", 'bold');
   doc.setFontSize(18)
-  doc.text('COOTRANSPORTES ', doc.internal.pageSize.getWidth()/ 2,15,{align : 'center'})
+  doc.text(`${a.empresa.nombre}`, doc.internal.pageSize.getWidth()/ 2,15,{align : 'center'})
   doc.setFont("helvetica", 'normal');
   doc.setFontSize(12);
-  doc.text(`Cliente : ${informacion}` , 20,30)
-  doc.text(`Cliente : ${a.cliente.nombre}` , 20,40)
-  doc.text(`Cedula : ${a.cliente.cedula}` , 20,50)
-  doc.text(`Origen : ${a.ruta.origen}` , 20,60)
-  doc.text(`Destino : ${a.ruta.destino}` , 20,70)
+  doc.text(`${a.empresa.nit}`, 20,30)
+  doc.text(`${a.empresa.direccion}`, 20,40)
+  doc.text(`${a.empresa.telefono}`, 20,50)
+  doc.text(`Fecha venta: ${a.fecha_venta}`, 20,60)
+  doc.text(`Fecha salida: ${a.fecha_salida}`, 20,70)
+  doc.text(`Cédula cliente${a.cliente.cedula}`, 20,80)
+  doc.text(`Cliente: ${a.cliente.nombre} ${a.cliente.apellidos}`, 20,90)
+  doc.text(`Telefono: ${a.cliente.telefono}`, 20,110)
+  doc.text(`Vehículo: ${a.vehiculo.placa} / ${a.vehiculo.num_vehiculo}`, 20,100)
+  doc.text(`Origen: ${a.ruta.origen}`, 20,120)
+  doc.text(`Destino: ${a.destino}`, 20,130)
+  doc.text(`Número de ticket: ${a.codigo}` , 20,140)
+  doc.text(`Silla: ${a.numero_puesto}` , 20,150)
   doc.save('TICKET.pdf')
  }
 </script>

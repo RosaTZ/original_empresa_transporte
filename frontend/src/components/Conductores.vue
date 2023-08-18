@@ -154,27 +154,37 @@
               {{ errores }}
             </div>
         <div class="modal-body">
+          <span>Cédula</span>
           <input type="text" v-model="cedula" placeholder="cedula" />
+          <span>Nombres</span>
           <input type="text" v-model="nombre" placeholder="nombres" />
+          <span>Apellidos</span>
           <input type="text" v-model="apellidos" placeholder="apellidos" />
+          <span>Fecha de nacimiento</span>
           <input
             type="date"
             v-model="fecha_nacimiento"
             placeholder="Fecha Nacimiento"
           />
+          <span>Dirección</span>
           <input type="text" v-model="direccion" placeholder="direccion" />
+          <span>Telefono</span>
           <input type="text" v-model="telefono" placeholder="telefono" />
+          <span>Estado civil</span>
           <input
             type="text"
             v-model="estado_civil"
             placeholder="Estado civil"
           />
+          <span>Licencia</span>
           <input type="text" v-model="licencia" placeholder="licencia" />
+          <span>Categoria licencia</span>
           <input
             type="text"
             v-model="categoria_licencia"
             placeholder="Categoria de la licencia"
           />
+          <span>Fecha vencimiento de la licencia</span>
           <input
             type="date"
             v-model="fecha_vencimiento"
@@ -187,7 +197,7 @@
 
         
         <div class="modal-buttons">
-          <button id="closeModalBtn" @click="modalRegistrar = false">
+          <button id="closeModalBtn" @click="modalRegistrar = false,limpiarCampos()">
             Cerrar
           </button>
           <button id="saveBtn" @click="registrarConductor()">Guardar</button>
@@ -201,27 +211,37 @@
           <h2>Editar conductor</h2>
         </div>
         <div class="modal-body">
+          <span>Cédula</span>
           <input type="text" v-model="cedula" placeholder="cedula" />
+          <span>Nombres</span>
           <input type="text" v-model="nombre" placeholder="nombres" />
+          <span>Apellidos</span>
           <input type="text" v-model="apellidos" placeholder="apellidos" />
+          <span>Fecha nacimiento</span>
           <input
             type="date"
             v-model="fecha_nacimiento"
             placeholder="Fecha Nacimiento"
           />
+          <span>Direccion</span>
           <input type="text" v-model="direccion" placeholder="direccion" />
+          <span>Telefono</span>
           <input type="text" v-model="telefono" placeholder="telefono" />
+          <span>Estado civil</span>
           <input
             type="text"
             v-model="estado_civil"
             placeholder="Estado civil"
           />
+          <span>Licencia</span>
           <input type="text" v-model="licencia" placeholder="licencia" />
+          <span>Categoria de la licencia</span>
           <input
             type="text"
             v-model="categoria_licencia"
             placeholder="Categoria de la licencia"
           />
+          <span>Fecha vencimiento de la licencia</span>
           <input
             type="date"
             v-model="fecha_vencimiento"
@@ -230,7 +250,7 @@
         </div>
 
         <div class="modal-buttons">
-          <button id="closeModalBtn" @click="modalEditar = false">
+          <button id="closeModalBtn" @click="modalEditar = false,limpiarCampos()">
             Cerrar
           </button>
           <button id="saveBtn" @click="guardarEdicion()">Guardar</button>
@@ -379,16 +399,16 @@ function guardarEdicion(){
   ).then((res)=>{
     limpiarCampos()
     alerta()
-    modalRegistrar.value=false
     buscarConductor()
-    modalEditar.value=false
-    modalBuscar.value=false
     Swal.fire({
       icon: 'success',
       title: 'Edicion Exitosa',
       showConfirmButton: false,
        timer: 1500})
     }) 
+    modalRegistrar.value=false
+    modalEditar.value=false
+    modalBuscar.value=false
     .catch((error)=>{
     errores.value=''
     if (error.response && error.response.data) {

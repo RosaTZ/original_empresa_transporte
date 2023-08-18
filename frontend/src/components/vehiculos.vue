@@ -160,7 +160,7 @@
         </div>
         <!-- BOTON REGISTRAR NUEVO VEHICULO -->
         <div class="modal-buttons">
-          <button id="closeModalBtn" @click="modalRegistrar = false">
+          <button id="closeModalBtn" @click="modalRegistrar = false,limpiarCampos()">
             Cerrar
           </button>
           <button id="saveBtn" @click="registrarVehiculo()">Guardar</button>
@@ -171,7 +171,7 @@
     <div class="modal-bg" id="modal" v-if="modalEditar === true">
       <div class="modal-content">
         <div class="modal-header">
-          <h2>Editar vehiculojj</h2>
+          <h2>Editar vehiculo</h2>
         </div>
         <div class="alert error" v-if="alert===true">
           <td class="icon-editt"></td>
@@ -202,7 +202,7 @@
         <div>
         </div>
         <div class="modal-buttons">
-          <button id="closeModalBtn" @click="modalEditar = false">
+          <button id="closeModalBtn" @click="modalEditar = false,limpiarCampos()">
             Cerrar
           </button>
           <button id="saveBtn" @click="guardarEdicion()">Guardar</button>
@@ -359,8 +359,7 @@ function guardarEdicion(){
     showConfirmButton: false,
     timer: 1500
    })
-  }).then((error)=>{
-    errores.value=''
+  }).catch((error)=>{
     if (error.response && error.response.data) {
       alert.value=true
       errores.value=error.response.data.errors[0].msg

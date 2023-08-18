@@ -43,6 +43,7 @@ const httpRutas = {
       codigo:req.body.codigo,
       origen: req.body.origen,
       destino: req.body.destino,
+      hora_salida: req.body.hora_salida
     };
     try {
       const buscarRuta= await Ruta.findByIdAndUpdate(id, rutaActualizada);

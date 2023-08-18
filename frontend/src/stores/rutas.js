@@ -44,7 +44,7 @@ cargando.value=true
               codigo:codigo,
               origen:origen,
               destino:destino,
-              hora_salida
+              hora_salida:hora_salida
             });
             return response.data;
           } catch (error) {

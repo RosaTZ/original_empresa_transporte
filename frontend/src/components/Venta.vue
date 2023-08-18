@@ -176,64 +176,77 @@
 
 
               <!-- Boleto final -->
-      <div v-if="modalBoleto===true">
-    <div class="ticket" v-for="v in boleto" :key="v">
-    <div class="ticket-header">
-      <h4>{{ v.empresa.nombre }}</h4>
-      <p>{{ v.empresa.nit }}</p>
-      <p>{{ v.empresa.direccion }}</p>
-      <p>{{ v.empresa.telefono }}</p>
-    </div>
-    <div class="ticket-info">
-      <div>
-        <label>Fecha de Venta:</label>
-        <span> {{ v.fecha_venta }}</span>
-      </div>
-      <div>
-        <label>Fecha de Salida:</label>
-        <span>{{ v.fecha_salida }} / {{ hora_salida }}</span>
-      </div>
-      <div>
-        <label>Cédula del Pasajero:</label>
-        <span>{{ v.cliente.cedula }}</span>
-      </div>
-      <div>
-        <label>Nombre del Pasajero:</label>
-        <span>{{ v.cliente.nombre }} {{ v.cliente.apellidos }}</span>
-      </div>
-      <div>
-        <label>Teléfono:</label>
-        <span>{{ v.cliente.telefono }}</span>
-      </div>
-      <div>
-        <label>Vehículo:</label>
-        <span>{{ v.vehiculo.placa }}/{{ v.vehiculo.num_vehiculo }}</span>
-      </div>
-      <div>
-        <label>Origen:</label>
-        <span>{{ v.ruta.origen }}</span>
-      </div>
-      <div>
-        <label>Destino:</label>
-        <span>{{ v.ruta.destino }}</span>
-      </div>
-      <div>
-        <label>Número de Ticket:</label>
-        <span>{{ v.codigo }}</span>
-      </div>
-      <div>
-        <label>Silla:</label>
-        <span>{{ v.numero_puesto }}</span>
-      </div>
-      <div>
-        <label>Valor del Ticket:</label>
-        <span>{{ v.precio }}</span>
-      </div>
-    </div>
-    <div class="ticket-footer">
-      <p>¡Gracias por su compra!</p>
-    </div>
-  </div>
+              <div v-if="modalBoleto === true">
+        <div class="modalPrincipal">
+          <div class="modal-contenido">
+            <div class="ticket" v-for="v in boleto" :key="v">
+              <div class="ticket-empre">
+                <smoll>{{ v.empresa.nombre }}</smoll>
+                <p>{{ v.empresa.nit }}</p>
+                <p>{{ v.empresa.direccion }}</p>
+                <p>{{ v.empresa.telefono }}</p>
+              </div>
+              <div class="ticket-info">
+                <div class="cont">
+                  <label>Fecha de Venta:</label>
+                  <span> {{ v.fecha_venta }}</span>
+                </div>
+                <div class="cont">
+                  <label>Fecha de Salida:</label>
+                  <span>{{ v.fecha_salida }}/{{ v.hora_salida }}</span>
+                </div>
+                <div class="cont">
+                  <label>Cédula del Pasajero:</label>
+                  <span>{{ v.cliente.cedula }}</span>
+                </div>
+                <div class="cont">
+                  <label>Nombre del Pasajero:</label>
+                  <span>{{ v.cliente.nombre }} {{ v.cliente.apellidos }}</span>
+                </div>
+                <div class="cont">
+                  <label>Teléfono:</label>
+                  <span>{{ v.cliente.telefono }}</span>
+                </div>
+                <div class="cont">
+                  <label>Vehículo:</label>
+                  <span
+                    >{{ v.vehiculo.placa }}/{{ v.vehiculo.num_vehiculo }}</span
+                  >
+                </div>
+                <div class="cont">
+                  <label>Origen:</label>
+                  <span>{{ v.ruta.origen }}</span>
+                </div>
+                <div class="cont">
+                  <label>Destino:</label>
+                  <span>{{ v.ruta.destino }}</span>
+                </div>
+                <div class="cont">
+                  <label>Número de Ticket:</label>
+                  <span>{{ v.codigo }}</span>
+                </div>
+                <div class="cont">
+                  <label>Silla:</label>
+                  <span>{{ v.numero_puesto }}</span>
+                </div>
+                <div class="cont">
+                  <label>Valor del Ticket:</label>
+                  <span>{{ v.precio }}</span>
+                </div>
+              </div>
+              <div class="ticket-footerr">
+                <p>¡Gracias por su compra!</p>
+              </div>
+            </div>
+            <button
+              class="close"
+              @click="(modalBoleto = false), (codigoBoleto = '')"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          >
+        </div>
       </div>
 
   </div>

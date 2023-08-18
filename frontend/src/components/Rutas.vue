@@ -140,7 +140,7 @@
           <input type="time" v-model="hora_salida" placeholder="Hora salida">
         </div>
         <div class="modal-buttons">
-          <button id="closeModalBtn" @click="modalRegistrar = false">
+          <button id="closeModalBtn" @click="modalRegistrar = false,limpiarCampos()">
             Cerrar
           </button>
           <button id="saveBtn" @click="registrarRuta()">Guardar</button>
@@ -172,10 +172,10 @@
 
 
         <div class="modal-buttons">
-          <button id="closeModalBtn" @click="modalEditar = false">
+          <button id="closeModalBtn" @click="modalEditar = false,limpiarCampos()">
             Cerrar
           </button>
-          <button id="saveBtn" @click="guardarEdicion() ">Guardar</button>
+          <button id="saveBtn" @click="guardarEdicion()">Guardar</button>
         </div>
       </div>
     </div>

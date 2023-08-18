@@ -32,7 +32,6 @@ const router= Router()
     check("num_vehiculo","Falta el numero del vehiculo").trim().not().isEmpty(),
     check("num_vehiculo","El número del vehiculo debe tener minimo 3 digitos y maximo 4 digitos").trim().isLength({min:3,max:4}),
     check("propietario","Ingrese el propietario del vehiculo").trim().not().isEmpty(),
-    check('estado',"Campo requerido").trim().not().isEmpty(),
     check("conductor_id",'No es un ID válido').trim().isMongoId(),
     check("revision_id",'No es un ID válido').trim().isMongoId(),
     validarCampos

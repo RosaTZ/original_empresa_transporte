@@ -53,7 +53,7 @@
             style="margin-top: 12%"
             color="amarillo"
           >
-            Ros Ruizzzzzzzzzzzzzzzzzzz
+            Ros Ruiz
           </div>
         </div>
         <div>
