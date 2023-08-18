@@ -352,7 +352,6 @@ function registrarCliente() {
     showConfirmButton: false,
     timer: 1500
    })
- 
    registrarTicket()
     }).catch((error) => {
       if (error.response && error.response.data.errors) {
@@ -468,10 +467,6 @@ function alerta() {
   telefono.value='',
   precio.value='',
   puestos.value=null
-  vehiculo_id.value=''
-  ruta_id.value=''
-  fecha_venta.value=''
-  fecha_salida.value=''
  }
 </script>
 

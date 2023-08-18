@@ -38,6 +38,7 @@
             <thead>
               <tr>
                 <th>Codigo</th>
+                <th>Fecha venta</th>
                 <th>Cedula</th>
                 <th>Cliente</th>
                 <th>Origen</th>
@@ -51,6 +52,7 @@
             <tbody>
               <tr v-for="(t, i) in tickets" :key="i">
                 <td>{{ t.codigo }}</td>
+                <td>{{ t.fecha_venta }}</td>
                 <td>{{ t.cliente.cedula }}</td>
                 <td>{{ t.cliente.nombre }} {{ t.cliente.apellidos }}</td>
                 <td>{{ t.ruta.origen }}</td>
@@ -77,6 +79,7 @@
               <thead>
                 <tr>
                   <th>Codigo</th>
+                  <th>Fecha venta</th>
                   <th>Cedula</th>
                   <th>Cliente</th>
                   <th>Origen</th>
@@ -90,6 +93,7 @@
               <tbody>
                 <tr v-for="(t, i) in buscarTick" :key="i">
                   <td>{{ t.codigo }}</td>
+                  <td>{{ t.fecha_venta }}</td>
                   <td>{{ t.cliente.cedula }}</td>
                   <td>{{ t.cliente.nomre }} {{ t.cliente.apellidos }}</td>
                   <td>{{ t.ruta.origen }}</td>

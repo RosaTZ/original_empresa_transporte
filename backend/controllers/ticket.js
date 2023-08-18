@@ -8,16 +8,22 @@ import Vehiculo from "../models/vehiculo.js"
 const httpTicket = {
     postTicket: async(req, res) => {
       const { codigo, fecha_venta,fecha_salida,precio,cliente,vehiculo,ruta,empresa,numero_puesto} = req.body
+      const currentDate = new Date();
+      if (new Date(fecha_venta) < currentDate) {
+        return res.status(400).json({ msg: 'La fecha de venta no puede ser menor que la fecha actual' });
+      }
       const ticket = await Ticket({ codigo, fecha_venta,fecha_salida,precio,cliente,vehiculo,ruta,empresa,numero_puesto })
      const buscar= await Ticket.findOne({codigo:codigo});
      const buscarPuesto= await Ticket.findOne({
       numero_puesto:numero_puesto,
-      vehiculo:vehiculo
+      vehiculo:vehiculo,
+      fecha_salida:fecha_salida,
+      ruta:ruta
     })
      if(buscar){
      return res.status(400).json({msg:'Ya esta registrado'})
-     }else if(buscarPuesto){
-      return res.status(400).json({msg:`El puesto #${numero_puesto} ya esta vendido`})
+     }else if(buscarPuesto && buscarPuesto.fecha_venta === fecha_venta){
+      return res.status(400).json({msg:`El puesto #${numero_puesto} ya esta vendido en la fecha ${fecha_venta}`})
      }else{
       await ticket.save()
       res.status(200).json({
