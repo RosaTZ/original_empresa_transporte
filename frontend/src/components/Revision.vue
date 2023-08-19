@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- ayuuuuuda -->
       <div class="q-pa-md mt-2" v-if="useRevision.cargando == true">
       <div class="row">
         <div class="col-2"></div>
