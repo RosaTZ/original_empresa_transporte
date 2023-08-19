@@ -634,9 +634,6 @@ function limpiarCampos() {
   margin-right: 4vh; /* Agrega espacio entre los elementos */
 }
 
-#img:hover{
-  /* box-shadow: 0px 0px 10px 1px gray; */
-}
 
 /* modal  -----------------------------------------*/
 .modal-bgG {
