@@ -33,7 +33,7 @@
       <div class="col-2"></div>
       <!--  -->
       <!--  -->
-      <div class="row">
+      <div class="row" ref="queeeeeeee">
         <div class="col">
           <h6 id="tituloTabla">Tickets</h6>
           <div class="table-container">
@@ -121,7 +121,8 @@
       </div>
       <!--  -->
       <!-- Boleto -->
-      <div v-if="modalBoleto === true">
+      
+        <div v-if="modalBoleto === true">
         <div class="modalPrincipal">
           <div class="modal-contenido">
             <div class="ticket" v-for="v in boleto" :key="v">
@@ -202,6 +203,7 @@
 import { ref } from "vue";
 import { useTicketStore } from "../stores/ticket";
 import jsPDF from "jspdf";
+import html2canvas from "html2canvas"
 const useTicket = useTicketStore();
 
 let tickets = ref([]);
@@ -254,8 +256,8 @@ function alerta() {
     errores.value = "";
   }, 1600);
 }
+
 function generarpdf() {
-  console.log("entro a generar pdf");
   const a =boleto.value[0]
 
   const doc = new jsPDF({

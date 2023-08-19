@@ -405,6 +405,8 @@ function registrarCliente() {
         timer: 1500,
       });
       registrarTicket();
+      buscarTicket()
+      buscarCliente()
     })
     .catch((error) => {
       if (error.response && error.response.data.errors) {
@@ -462,6 +464,7 @@ async function renovar() {
 }
 buscarTicket();
 function registrarTicket() {
+  buscarCliente()
   numAleatorio.value + 1;
   useTicket
     .registrarTicket({
@@ -486,6 +489,7 @@ function registrarTicket() {
     })
     .catch((error) => {
       if (error.response && error.response.data.errors) {
+        console.log(error.response.data);
         alertTicket.value = true;
         errores1.value = error.response.data.errors[0].msg;
         console.log(errores1.value);
