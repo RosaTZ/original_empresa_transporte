@@ -35,7 +35,7 @@
               style="color: #ffffff; font-size: 3.8vh"
             ></i>
           </button>
-          <input type="text" v-model="id" placeholder="Buscar Por placa " />
+          <input type="text" v-model="id" placeholder="Buscar por placa " />
 
           <div class="alert error" v-if="alert === true">
             <span>{{ erroresBuscar }}</span>

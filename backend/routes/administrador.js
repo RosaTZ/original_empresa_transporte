@@ -10,8 +10,8 @@ const router= Router()
   // router.post("/login",httpAdministrador.login)
 
   router.post("/token",[
-    check("email","Ingrese el usuario").not().isEmpty(),
-    check("password","Ingrese la contraseña").not().isEmpty(),
+    check("email","Ingrese el usuario").trim().not().isEmpty(),
+    check("password","Ingrese la contraseña").trim().not().isEmpty(),
     validarCampos
   ],httpAdministrador.postAdministradorToken)
   

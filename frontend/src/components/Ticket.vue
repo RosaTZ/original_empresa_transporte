@@ -24,7 +24,7 @@
           <button @click="buscarTicketCodigo()" :disabled="codigo === ''">
             <img src="../imagenes/persona.svg" alt="no" />
           </button>
-          <input type="text" v-model="codigo" placeholder="Ingrese a buscar" />
+          <input type="text" v-model="codigo" placeholder="Buscar ticket por el codigo" />
           <div class="alert error" v-if="alert === true">
             <span>{{ errores }}</span>
           </div>

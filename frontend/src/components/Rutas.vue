@@ -32,7 +32,7 @@
               style="color: #ffffff; font-size: 3.8vh"
             ></i>
           </button>
-          <input type="text" v-model="id" placeholder="Buscar Tecnomecanica" />
+          <input type="text" v-model="id" placeholder="Buscar Ruta por codigo" />
 
           <div class="alert error" v-if="alert === true">
             <span>{{ erroresBuscar }}</span>
@@ -102,9 +102,9 @@
             <td>{{ p.origen }}</td>
             <td>{{ p.destino }}</td>
             <td>{{ p.hora_salida }}</td>
-            <td class="icon-edit" @click="editarRuta(b)"></td>
-            <div @click="cambiarEstado(b)" style=" text-align: center; cursor: pointer">
-                <td v-if="b.estado===1" style="text-align: center; margin: auto; color: green; font-weight: bold;">Activo</td>
+            <td class="icon-edit" @click="editarRuta(p)"></td>
+            <div @click="cambiarEstado(p)" style=" text-align: center; cursor: pointer">
+                <td v-if="p.estado===1" style="text-align: center; margin: auto; color: green; font-weight: bold;">Activo</td>
                 <td v-else style="color: red; font-weight: bold ;">Inactivo</td>
                 </div>
           </tr>
@@ -252,8 +252,8 @@ buscarRuta();
 
 async function buscarRutaId() {
   await useRuta.buscarRutaId(id.value).then((res)=>{
-    buscar.value=res
     modalBuscar.value=true
+    buscar.value=res
   }).catch((error)=>{
     if (error.response && error.response.data) {
       alert.value=true
