@@ -394,13 +394,12 @@ async function buscarRevisionId() {
 }
 
 async function editarRevision(p) {
-  modalEditar.value = true;
   idEditar.value = p._id;
   tecnomecanica.value = p.tecnomecanica;
   fecha_proxima_revision.value = p.fecha_proxima_revision;
   fecha_revision.value = p.fecha_revision;
   descripcion.value = p.descripcion;
-  modalEditar.value=true
+  modalEditar.value = true;
   modalRegistrar.value=false
   modalBuscar.value=false
 }

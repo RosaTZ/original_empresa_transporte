@@ -2,7 +2,6 @@ import {defineStore} from "pinia"
 import axios from "axios"
 
 export const useVededorStore = defineStore("vendedor",()=>{
-    let data= ""
 
     const registrarVendedor = async(info)=>{
         try {

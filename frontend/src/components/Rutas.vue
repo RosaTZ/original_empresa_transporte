@@ -82,8 +82,8 @@
  <!-- INFORMACION DE LA RUTA BUSCADA POR ID -->
  <div class="modal-bg" id="modal" v-if="modalBuscar===true">
         <div class="modal-content" style="width: 100%;">
-            <div id="modal-body" v-for="b in buscar.ruta" :key="b">
-              <h6 id="tituloTabla">Cliente {{ b.codigo}} </h6>
+            <div id="modal-body" v-for="p in buscar.ruta" :key="p">
+              <h6 id="tituloTabla">Cliente {{ p.codigo}} </h6>
             <div class="table-container"  >
           <table class="custom-table">
         <thead>
@@ -98,11 +98,11 @@
         </thead>
         <tbody>
           <tr>
-            <td>{{ b.codigo }}</td>
-            <td>{{ b.origen }}</td>
-            <td>{{ b.destino }}</td>
-            <td>{{ b.hora_salida }}</td>
-            <td class="icon-edit" @click="editarRuta(b)" ></td>
+            <td>{{ p.codigo }}</td>
+            <td>{{ p.origen }}</td>
+            <td>{{ p.destino }}</td>
+            <td>{{ p.hora_salida }}</td>
+            <td class="icon-edit" @click="editarRuta(b)"></td>
             <div @click="cambiarEstado(b)" style=" text-align: center; cursor: pointer">
                 <td v-if="b.estado===1" style="text-align: center; margin: auto; color: green; font-weight: bold;">Activo</td>
                 <td v-else style="color: red; font-weight: bold ;">Inactivo</td>
@@ -115,7 +115,7 @@
 
             </div>
             <div class="modal-buttons">
-                <button id="closeModalBtn" @click="modalBuscar=false , id=''">Cerrar</button>
+                <button id="closeModalBtn" @click="modalBuscar=false,id=''">Cerrar</button>
             </div>
         </div>
     </div>
@@ -211,7 +211,7 @@ function registrarRuta(){
     codigo: codigo.value,
     origen: origen.value,
     destino: destino.value,
-    hora_salida:hora_salida.value,
+    hora_salida: hora_salida.value,
     estado:1
   }).then((res)=>{
 console.log(res);
@@ -225,9 +225,13 @@ Swal.fire({
         timer: 1500,
       });
   }).catch((error)=>{
-if(error.response && error.response.data){
+if(error.response && error.response.data.errors){
   alert.value=true
   errores.value=error.response.data.errors[0].msg
+  alerta()
+}else if(error.response && error.response.data){
+  alert.value=true
+  errores.value=error.response.data.msg
   alerta()
 }else{
 console.log(error);

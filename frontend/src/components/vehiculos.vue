@@ -106,7 +106,7 @@
                   <td>{{ b.num_vehiculo }}</td>
                   <td>{{ b.propietario }}</td>
                   <td>{{ b.puestos }}</td>
-                  <td class="icon-edit" @click="editarVehiculo(p)" ></td>
+                  <td class="icon-edit" @click="editarVehiculo(p)"></td>
                    <div @click="cambiarEstado(b)" style=" text-align: center; cursor: pointer ; margin-top: 10%;">
                 <td v-if="b.estado===1" style="text-align: center; margin: auto; color:green; font-weight: bold;">Activo</td>
                 <td v-else style="color: red; font-weight: bold ;">Inactivo</td>

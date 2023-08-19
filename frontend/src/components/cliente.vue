@@ -72,10 +72,7 @@
       </table>
           </div> 
     </div>
-
         </div>
-
-
 </div>
       <!-- modal registrar -->
       <div class="modal-bg" id="modal" v-if="modalRegistrar===true">
@@ -304,5 +301,4 @@ function alerta() {
     erroresBuscar.value=''
   }, 3000);
  }
- 
   </script>
