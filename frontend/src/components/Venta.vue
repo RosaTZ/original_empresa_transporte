@@ -404,7 +404,7 @@ function registrarCliente() {
         showConfirmButton: false,
         timer: 1500,
       });
-      registrarTicket();
+      // registrarTicket();
       buscarTicket()
       buscarCliente()
     })
