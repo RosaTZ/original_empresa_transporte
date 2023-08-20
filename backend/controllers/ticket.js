@@ -17,16 +17,16 @@ const httpTicket = {
 // if (fechaVenta < currentDate) {
 //   return res.status(400).json({ msg: 'La fecha de venta no puede ser menor que la fecha actual' });
 // }
-const currentDate = new Date();
-const fechaVenta = new Date(fecha_venta);
+// const currentDate = new Date();
+// const fechaVenta = new Date(fecha_venta);
 
 // Comparar solo las fechas, sin tener en cuenta la hora
-currentDate.setHours(0, 0, 0, 0);
-fechaVenta.setHours(0, 0, 0, 0);
+// currentDate.setHours(0, 0, 0, 0);
+// fechaVenta.setHours(0, 0, 0, 0);
 
-if (fechaVenta < currentDate) {
-  return res.status(400).json({ msg: 'La fecha de venta no puede ser menor que la fecha actual' });
-}
+// if (fechaVenta < currentDate) {
+//   return res.status(400).json({ msg: 'La fecha de venta no puede ser menor que la fecha actual' });
+// }
 
       const ticket = await Ticket({ codigo, fecha_venta,fecha_salida,precio,cliente,vehiculo,ruta,empresa,numero_puesto })
      const buscar= await Ticket.findOne({codigo:codigo});

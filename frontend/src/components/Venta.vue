@@ -148,7 +148,7 @@
               <div id="fechas">
                 <div>
                   <span>Fecha venta</span>
-                  <input type="datetime-local" v-model="fecha_venta" />
+                  <input type="date" v-model="fecha_venta" />
                   <div v-if="mostrarFecha===true">
                     <span>Fecha Salida</span>
                   <input type="date" v-model="fecha_salida" />
