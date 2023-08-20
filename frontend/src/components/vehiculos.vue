@@ -108,7 +108,7 @@
                   <td>{{ p.puestos }}</td>
                   <td class="icon-edit" @click="editarVehiculo(p)"></td>
                    <div @click="cambiarEstado(p)" style=" text-align: center; cursor: pointer ; margin-top: 10%;">
-                <td v-if="b.estado===1" style="text-align: center; margin: auto; color:green; font-weight: bold;">Activo</td>
+                <td v-if="p.estado===1" style="text-align: center; margin: auto; color:green; font-weight: bold;">Activo</td>
                 <td v-else style="color: red; font-weight: bold ;">Inactivo</td>
                 </div>
                   </tr>
@@ -245,8 +245,6 @@ const useRevision=useRevisionStore()
 
 async function traerConductor() {
   conductores.value = await useConductor.buscarConductor();
-  // conductorFiltrado.value=conductores.value.filter(c=>c.estado===1)
-  // console.log('vvvvvvvvvvvvvvvvvv',conductorFiltrado.value);
 }
 async function traerRevision() {
   revisiones.value = await useRevision.buscarRevision();
