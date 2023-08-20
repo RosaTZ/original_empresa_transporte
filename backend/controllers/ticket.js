@@ -18,11 +18,11 @@ const httpTicket = {
 //   return res.status(400).json({ msg: 'La fecha de venta no puede ser menor que la fecha actual' });
 // }
 const currentDate = new Date();
-currentDate.setUTCHours(0, 0, 0, 0); // Establecer la fecha actual en UTC
-console.log(currentDate);
+const fechaVenta = new Date(fecha_venta);
 
-const fechaVenta = new Date(fecha_venta).setUTCHours(0, 0, 0, 0); // Convertir la fecha de venta a UTC
-console.log(fechaVenta);
+// Comparar solo las fechas, sin tener en cuenta la hora
+currentDate.setHours(0, 0, 0, 0);
+fechaVenta.setHours(0, 0, 0, 0);
 
 if (fechaVenta < currentDate) {
   return res.status(400).json({ msg: 'La fecha de venta no puede ser menor que la fecha actual' });
