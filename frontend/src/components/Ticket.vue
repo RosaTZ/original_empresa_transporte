@@ -261,21 +261,26 @@ function alerta() {
 }
 
 function generarpdf() {
-  const doc=new jsPDF()
+  const doc=new jsPDF({
+    format: [120, 140] // Ancho x Alto en mm
+  })
+  
  html2canvas(document.querySelector("#content")).then(canvas => {
     const imgData = canvas.toDataURL("image/jpeg", 1.0);
     const pdfWidth = doc.internal.pageSize.getWidth(); // Ancho del PDF
     const pdfHeight = doc.internal.pageSize.getHeight(); // Alto del PDF
-    const imgWidth = pdfWidth * 0.75;
+    const imgWidth = pdfWidth * 0.6;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
     const x = (pdfWidth - imgWidth) / 2;
-    const y = (pdfHeight - imgHeight) / 2;
+    const y = (pdfHeight - imgHeight) / 8;
+
 
     doc.addImage(imgData, 'JPEG', x, y, imgWidth, imgHeight);
     doc.save('TICKET.pdf');
 });
   
 }
+
 </script>
 
 <style>
@@ -304,7 +309,7 @@ body {
   position: relative;
   margin: 6% auto;
   top: -1%;
-  width: 53%;
+  width: 50%;
   padding-bottom: 5vh;
 }
 
@@ -314,7 +319,7 @@ body {
   border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.411);
-  width: 60%;
+  width: 40%;
 }
 .modal-contenido .ticket-empre {
   background-color: #273273;
