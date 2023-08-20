@@ -86,8 +86,8 @@
     <!-- MODAL DE BUSQUEDA -->
     <div class="modal-bg" id="modal" v-if="modalBuscar===true">
         <div class="modal-content">
-            <div class="modal-body" v-for="b in buscar.vehiculo" :key="b">
-              <h6 id="tituloTabla">Placa {{ b.placa }} </h6>
+            <div class="modal-body" v-for="p in buscar.vehiculo" :key="p">
+              <h6 id="tituloTabla">Placa {{ p.placa }} </h6>
             <div class="table-container"  >
             <table class="custom-table">
                <thead>
@@ -102,12 +102,12 @@
                </thead>
               <tbody>
                  <tr>
-                  <td>{{ b.placa }}</td>
-                  <td>{{ b.num_vehiculo }}</td>
-                  <td>{{ b.propietario }}</td>
-                  <td>{{ b.puestos }}</td>
+                  <td>{{ p.placa }}</td>
+                  <td>{{ p.num_vehiculo }}</td>
+                  <td>{{ p.propietario }}</td>
+                  <td>{{ p.puestos }}</td>
                   <td class="icon-edit" @click="editarVehiculo(p)"></td>
-                   <div @click="cambiarEstado(b)" style=" text-align: center; cursor: pointer ; margin-top: 10%;">
+                   <div @click="cambiarEstado(p)" style=" text-align: center; cursor: pointer ; margin-top: 10%;">
                 <td v-if="b.estado===1" style="text-align: center; margin: auto; color:green; font-weight: bold;">Activo</td>
                 <td v-else style="color: red; font-weight: bold ;">Inactivo</td>
                 </div>

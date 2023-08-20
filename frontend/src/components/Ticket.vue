@@ -125,7 +125,7 @@
         <div v-if="modalBoleto === true">
         <div class="modalPrincipal">
           <div class="modal-contenido">
-            <div class="ticket" v-for="v in boleto" :key="v">
+            <div class="ticket" v-for="v in boleto" :key="v" id="content">
               <div class="ticket-empre">
                 <smoll>{{ v.empresa.nombre }}</smoll>
                 <p>{{ v.empresa.nit }}</p>
@@ -184,6 +184,9 @@
                 <p>¡Gracias por su compra!</p>
               </div>
             </div>
+            <div  class="pdf">
+              <button @click="generarpdf()">Imprimir</button>
+            </div>
             <button
               class="close"
               @click="(modalBoleto = false), (codigoBoleto = '')"
@@ -204,6 +207,7 @@ import { ref } from "vue";
 import { useTicketStore } from "../stores/ticket";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas"
+
 const useTicket = useTicketStore();
 
 let tickets = ref([]);
@@ -246,7 +250,6 @@ async function Buscarboleto(t) {
     boleto.value = res.ticket;
     modalBoleto.value = true;
     modalBuscar.value = false;
-    generarpdf()
   });
 }
 function alerta() {
@@ -258,33 +261,21 @@ function alerta() {
 }
 
 function generarpdf() {
-  const a =boleto.value[0]
+  const doc=new jsPDF()
+ html2canvas(document.querySelector("#content")).then(canvas => {
+    const imgData = canvas.toDataURL("image/jpeg", 1.0);
+    const pdfWidth = doc.internal.pageSize.getWidth(); // Ancho del PDF
+    const pdfHeight = doc.internal.pageSize.getHeight(); // Alto del PDF
+    const imgWidth = pdfWidth * 0.75;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    const x = (pdfWidth - imgWidth) / 2;
+    const y = (pdfHeight - imgHeight) / 2;
 
-  const doc = new jsPDF({
-    orientation :'portrait',
-    unit : 'mm',
-    format : 'a6'
-  })
-  doc.setFont("helvetica", 'bold');
-  doc.setFontSize(18)
-  doc.text(`${a.empresa.nombre}`, doc.internal.pageSize.getWidth()/ 2,15,{align : 'center'})
-  doc.setFont("helvetica", 'normal');
-  doc.setFontSize(12);
-  doc.text(`${a.empresa.nit}`, 20,30)
-  doc.text(`${a.empresa.direccion}`, 20,40)
-  doc.text(`${a.empresa.telefono}`, 20,50)
-  doc.text(`Fecha venta: ${a.fecha_venta}`, 20,60)
-  doc.text(`Fecha salida: ${a.fecha_salida}`, 20,70)
-  doc.text(`Cédula cliente${a.cliente.cedula}`, 20,80)
-  doc.text(`Cliente: ${a.cliente.nombre} ${a.cliente.apellidos}`, 20,90)
-  doc.text(`Telefono: ${a.cliente.telefono}`, 20,110)
-  doc.text(`Vehículo: ${a.vehiculo.placa} / ${a.vehiculo.num_vehiculo}`, 20,100)
-  doc.text(`Origen: ${a.ruta.origen}`, 20,120)
-  doc.text(`Destino: ${a.destino}`, 20,130)
-  doc.text(`Número de ticket: ${a.codigo}` , 20,140)
-  doc.text(`Silla: ${a.numero_puesto}` , 20,150)
-  doc.save('TICKET.pdf')
- }
+    doc.addImage(imgData, 'JPEG', x, y, imgWidth, imgHeight);
+    doc.save('TICKET.pdf');
+});
+  
+}
 </script>
 
 <style>
@@ -379,5 +370,16 @@ body {
 }
 .close:hover {
   box-shadow: 0 0 20px 1px #d70f01;
+}
+.pdf{
+  text-align: center;
+  margin: 25px;
+}
+.pdf button{
+  width: 15%;
+  height: 45px;
+  border-radius: 5px;
+  background-color: #273273;
+  color: #fff;
 }
 </style>
