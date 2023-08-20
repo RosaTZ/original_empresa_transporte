@@ -8,15 +8,26 @@ import Vehiculo from "../models/vehiculo.js"
 const httpTicket = {
     postTicket: async(req, res) => {
       const { codigo, fecha_venta,fecha_salida,precio,cliente,vehiculo,ruta,empresa,numero_puesto} = req.body
-      const currentDate = new Date();
-currentDate.setHours(0, 0, 0, 0); 
+//       const currentDate = new Date();
+// currentDate.setHours(0, 0, 0, 0); 
+// console.log(currentDate);
+// const fechaVenta = new Date(fecha_venta);
+// fechaVenta.setHours(0, 0, 0, 0); 
+// console.log(fechaVenta);
+// if (fechaVenta < currentDate) {
+//   return res.status(400).json({ msg: 'La fecha de venta no puede ser menor que la fecha actual' });
+// }
+const currentDate = new Date();
+currentDate.setUTCHours(0, 0, 0, 0); // Establecer la fecha actual en UTC
 console.log(currentDate);
-const fechaVenta = new Date(fecha_venta);
-fechaVenta.setHours(0, 0, 0, 0); 
+
+const fechaVenta = new Date(fecha_venta).setUTCHours(0, 0, 0, 0); // Convertir la fecha de venta a UTC
 console.log(fechaVenta);
+
 if (fechaVenta < currentDate) {
   return res.status(400).json({ msg: 'La fecha de venta no puede ser menor que la fecha actual' });
 }
+
       const ticket = await Ticket({ codigo, fecha_venta,fecha_salida,precio,cliente,vehiculo,ruta,empresa,numero_puesto })
      const buscar= await Ticket.findOne({codigo:codigo});
      const buscarPuesto= await Ticket.findOne({
